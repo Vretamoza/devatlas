@@ -1,2 +1,88 @@
 @import "tailwindcss";
-@plugin "daisyui";
+
+/* ── TAILWIND THEME ──────────────────────────────────────────────────────────
+   Fonts and custom spacing tokens live here.
+   Reference with Tailwind utilities: font-sans, font-mono, etc.
+   ────────────────────────────────────────────────────────────────────────── */
+@theme {
+  --font-sans: "DM Sans", sans-serif;
+  --font-mono: "DM Mono", monospace;
+  --spacing-nav: 64px;
+}
+
+/* ── DAISYUI THEME ───────────────────────────────────────────────────────────
+   Single source of truth for all color and radius tokens.
+   daisyUI's --color-* variables are the canonical names used everywhere —
+   no duplicate --primary / --color-primary declarations.
+   ────────────────────────────────────────────────────────────────────────── */
+@plugin "daisyui" {
+  themes: devatlas --default, devatlas-dark --prefersdark;
+}
+
+@plugin "daisyui/theme" {
+  name: "devatlas";
+  default: true;
+  color-scheme: light;
+
+  /* Colors — design system hex values converted to oklch */
+  --color-primary: oklch(0.45 0.31 264); /* #570df8 */
+  --color-primary-content: oklch(1 0 0); /* #ffffff */
+  --color-secondary: oklch(0.51 0.32 314); /* #f000b8 */
+  --color-secondary-content: oklch(1 0 0); /* #ffffff */
+  --color-accent: oklch(0.77 0.13 181); /* #37cdbe */
+  --color-accent-content: oklch(0.24 0.055 175); /* #163835 */
+  --color-neutral: oklch(0.31 0.02 264); /* #3d4451 */
+  --color-neutral-content: oklch(1 0 0); /* #ffffff */
+  --color-base-100: oklch(1 0 0); /* #ffffff */
+  --color-base-200: oklch(0.96 0 0); /* #f2f2f2 */
+  --color-base-300: oklch(0.91 0 0); /* #e5e6e6 */
+  --color-base-content: oklch(0.22 0.026 264); /* #1f2937 */
+  --color-info: oklch(0.74 0.16 215); /* #3abff8 */
+  --color-info-content: oklch(0.18 0.055 220); /* #002b3d */
+  --color-success: oklch(0.8 0.165 161); /* #36d399 */
+  --color-success-content: oklch(0.21 0.07 160); /* #003320 */
+  --color-warning: oklch(0.83 0.16 87); /* #fbbd23 */
+  --color-warning-content: oklch(0.22 0.073 68); /* #382800 */
+  --color-error: oklch(0.69 0.17 21); /* #f87272 */
+  --color-error-content: oklch(0.18 0.074 21); /* #470000 */
+
+  /* Radius */
+  --radius-btn: 0.5rem;
+  --radius-badge: 1.9rem;
+  --radius-box: 1rem; /* --radius-card in design system */
+}
+
+@plugin "daisyui/theme" {
+  name: "devatlas-dark";
+  color-scheme: dark;
+
+  --color-primary: oklch(0.55 0.31 264);
+  --color-primary-content: oklch(1 0 0);
+  --color-secondary: oklch(0.6 0.28 314);
+  --color-secondary-content: oklch(1 0 0);
+  --color-accent: oklch(0.77 0.13 181);
+  --color-accent-content: oklch(0.24 0.055 175);
+  --color-neutral: oklch(0.25 0.02 264);
+  --color-neutral-content: oklch(0.85 0 0);
+  --color-base-100: oklch(0.18 0.015 264);
+  --color-base-200: oklch(0.22 0.015 264);
+  --color-base-300: oklch(0.27 0.015 264);
+  --color-base-content: oklch(0.9 0.01 264);
+  --color-info: oklch(0.74 0.16 215);
+  --color-info-content: oklch(0.18 0.055 220);
+  --color-success: oklch(0.8 0.165 161);
+  --color-success-content: oklch(0.21 0.07 160);
+  --color-warning: oklch(0.83 0.16 87);
+  --color-warning-content: oklch(0.22 0.073 68);
+  --color-error: oklch(0.69 0.17 21);
+  --color-error-content: oklch(0.18 0.074 21);
+
+  --radius-btn: 0.5rem;
+  --radius-badge: 1.9rem;
+  --radius-box: 1rem;
+}
+
+/* Card lift with tinted shadow on hover */
+.card:hover {
+  box-shadow: 0 12px 32px -4px color-mix(in oklch, var(--color-primary) 12%, transparent);
+}
