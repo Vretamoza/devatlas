@@ -1,0 +1,2908 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Design System — PoiseUI Style</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #570df8;
+        --primary-focus: #4506cb;
+        --primary-content: #ffffff;
+        --secondary: #f000b8;
+        --secondary-content: #ffffff;
+        --accent: #37cdbe;
+        --accent-content: #163835;
+        --neutral: #3d4451;
+        --neutral-content: #ffffff;
+        --base-100: #ffffff;
+        --base-200: #f2f2f2;
+        --base-300: #e5e6e6;
+        --base-content: #1f2937;
+        --info: #3abff8;
+        --info-content: #002b3d;
+        --success: #36d399;
+        --success-content: #003320;
+        --warning: #fbbd23;
+        --warning-content: #382800;
+        --error: #f87272;
+        --error-content: #470000;
+        --radius-btn: 0.5rem;
+        --radius-badge: 1.9rem;
+        --radius-card: 1rem;
+        --font: "DM Sans", sans-serif;
+        --font-mono: "DM Mono", monospace;
+        --nav-h: 64px;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: var(--font);
+        background: var(--base-100);
+        color: var(--base-content);
+        font-size: 16px;
+        line-height: 1.6;
+      }
+
+      /* ── NAV ─────────────────────────────────── */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: var(--nav-h);
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--base-300);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 2rem;
+        z-index: 100;
+      }
+      .nav-logo {
+        font-size: 1.1rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--base-content);
+        text-decoration: none;
+      }
+      .nav-logo span {
+        color: var(--primary);
+      }
+      .nav-links {
+        display: flex;
+        gap: 0.25rem;
+      }
+      .nav-links a {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--base-content);
+        text-decoration: none;
+        padding: 0.4rem 0.75rem;
+        border-radius: var(--radius-btn);
+        transition: background 0.15s;
+        opacity: 0.75;
+      }
+      .nav-links a:hover {
+        background: var(--base-200);
+        opacity: 1;
+      }
+      .nav-badge {
+        font-size: 0.7rem;
+        font-weight: 600;
+        background: var(--primary);
+        color: #fff;
+        padding: 0.2rem 0.6rem;
+        border-radius: 99px;
+        letter-spacing: 0.05em;
+      }
+
+      /* ── SIDEBAR ─────────────────────────────── */
+      .layout {
+        display: flex;
+        margin-top: var(--nav-h);
+        min-height: calc(100vh - var(--nav-h));
+      }
+      aside {
+        width: 220px;
+        flex-shrink: 0;
+        position: sticky;
+        top: var(--nav-h);
+        height: calc(100vh - var(--nav-h));
+        overflow-y: auto;
+        border-right: 1px solid var(--base-300);
+        padding: 1.5rem 1rem;
+        background: var(--base-100);
+      }
+      .sidebar-group {
+        margin-bottom: 1.25rem;
+      }
+      .sidebar-label {
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--base-content);
+        opacity: 0.4;
+        padding: 0 0.5rem;
+        margin-bottom: 0.4rem;
+      }
+      .sidebar-link {
+        display: block;
+        font-size: 0.875rem;
+        color: var(--base-content);
+        text-decoration: none;
+        padding: 0.3rem 0.5rem;
+        border-radius: 6px;
+        opacity: 0.7;
+        transition: all 0.15s;
+      }
+      .sidebar-link:hover {
+        background: var(--base-200);
+        opacity: 1;
+      }
+      .sidebar-link.active {
+        background: var(--primary);
+        color: #fff;
+        opacity: 1;
+      }
+
+      /* ── MAIN ────────────────────────────────── */
+      main {
+        flex: 1;
+        padding: 3rem 3.5rem;
+        max-width: 900px;
+      }
+      section {
+        margin-bottom: 5rem;
+      }
+      .section-header {
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--base-300);
+      }
+      h1 {
+        font-size: 2.5rem;
+        font-weight: 600;
+        line-height: 1.2;
+      }
+      h2 {
+        font-size: 1.75rem;
+        font-weight: 600;
+      }
+      h3 {
+        font-size: 1.15rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+      .subtitle {
+        font-size: 1rem;
+        color: var(--base-content);
+        opacity: 0.6;
+        margin-top: 0.5rem;
+      }
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        padding: 0.2rem 0.6rem;
+        border-radius: 99px;
+        background: rgba(87, 13, 248, 0.1);
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+      }
+
+      /* ── TOKENS: COLOR ───────────────────────── */
+      .color-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 0.75rem;
+      }
+      .color-swatch {
+        border-radius: var(--radius-card);
+        overflow: hidden;
+        border: 1px solid rgba(0, 0, 0, 0.06);
+      }
+      .swatch-block {
+        height: 72px;
+      }
+      .swatch-info {
+        padding: 0.5rem 0.75rem;
+        background: var(--base-100);
+      }
+      .swatch-name {
+        font-size: 0.75rem;
+        font-weight: 600;
+      }
+      .swatch-val {
+        font-size: 0.7rem;
+        font-family: var(--font-mono);
+        opacity: 0.5;
+      }
+
+      /* ── TOKENS: TYPE ────────────────────────── */
+      .type-scale .type-row {
+        display: flex;
+        align-items: baseline;
+        gap: 1.5rem;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid var(--base-200);
+      }
+      .type-meta {
+        width: 160px;
+        flex-shrink: 0;
+      }
+      .type-label {
+        font-size: 0.75rem;
+        font-weight: 600;
+      }
+      .type-spec {
+        font-size: 0.7rem;
+        font-family: var(--font-mono);
+        opacity: 0.45;
+      }
+      .type-sample {
+        flex: 1;
+      }
+
+      /* ── TOKENS: SPACING ─────────────────────── */
+      .space-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .space-row {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+      }
+      .space-bar-wrap {
+        flex: 1;
+      }
+      .space-bar {
+        height: 20px;
+        border-radius: 4px;
+        background: var(--primary);
+        opacity: 0.2;
+      }
+      .space-name {
+        font-size: 0.75rem;
+        font-family: var(--font-mono);
+        width: 80px;
+        flex-shrink: 0;
+      }
+      .space-px {
+        font-size: 0.75rem;
+        opacity: 0.45;
+        width: 50px;
+        text-align: right;
+        flex-shrink: 0;
+      }
+
+      /* ── TOKENS: RADIUS ──────────────────────── */
+      .radius-grid {
+        display: flex;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+      }
+      .radius-sample {
+        width: 80px;
+        height: 80px;
+        background: var(--primary);
+        opacity: 0.15;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding-bottom: 8px;
+        font-size: 0.7rem;
+        font-family: var(--font-mono);
+        color: var(--base-content);
+        border: 2px solid var(--primary);
+        opacity: 1;
+      }
+
+      /* ── COMPONENTS ──────────────────────────── */
+      .component-group {
+        margin-bottom: 2.5rem;
+      }
+      .demo-surface {
+        background: var(--base-200);
+        border-radius: var(--radius-card);
+        padding: 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        align-items: center;
+      }
+      .demo-surface.dark-bg {
+        background: var(--neutral);
+      }
+
+      /* Buttons */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        font-family: var(--font);
+        font-size: 0.875rem;
+        font-weight: 600;
+        padding: 0.625rem 1rem;
+        border-radius: var(--radius-btn);
+        border: 2px solid transparent;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+      .btn:active {
+        transform: translateY(1px);
+      }
+      .btn-primary {
+        background: var(--primary);
+        color: var(--primary-content);
+        border-color: var(--primary);
+      }
+      .btn-primary:hover {
+        background: var(--primary-focus);
+        border-color: var(--primary-focus);
+      }
+      .btn-secondary {
+        background: var(--secondary);
+        color: var(--secondary-content);
+        border-color: var(--secondary);
+      }
+      .btn-accent {
+        background: var(--accent);
+        color: var(--accent-content);
+        border-color: var(--accent);
+      }
+      .btn-neutral {
+        background: var(--neutral);
+        color: var(--neutral-content);
+        border-color: var(--neutral);
+      }
+      .btn-ghost {
+        background: transparent;
+        color: var(--base-content);
+        border-color: transparent;
+      }
+      .btn-ghost:hover {
+        background: var(--base-200);
+      }
+      .btn-outline {
+        background: transparent;
+        color: var(--primary);
+        border-color: var(--primary);
+      }
+      .btn-outline:hover {
+        background: var(--primary);
+        color: white;
+      }
+      .btn-link {
+        background: transparent;
+        color: var(--primary);
+        border: none;
+        text-decoration: underline;
+        padding: 0;
+      }
+      .btn-sm {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.7rem;
+      }
+      .btn-lg {
+        font-size: 1rem;
+        padding: 0.85rem 1.5rem;
+      }
+      .btn-wide {
+        width: 100%;
+      }
+      .btn-circle {
+        width: 3rem;
+        height: 3rem;
+        padding: 0;
+        border-radius: 50%;
+      }
+      .btn-square {
+        width: 3rem;
+        height: 3rem;
+        padding: 0;
+        border-radius: var(--radius-btn);
+      }
+      .btn-disabled,
+      .btn[disabled] {
+        opacity: 0.35;
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+      .btn-info {
+        background: var(--info);
+        color: var(--info-content);
+        border-color: var(--info);
+      }
+      .btn-success {
+        background: var(--success);
+        color: var(--success-content);
+        border-color: var(--success);
+      }
+      .btn-warning {
+        background: var(--warning);
+        color: var(--warning-content);
+        border-color: var(--warning);
+      }
+      .btn-error {
+        background: var(--error);
+        color: var(--error-content);
+        border-color: var(--error);
+      }
+
+      /* Badges */
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        font-size: 0.75rem;
+        font-weight: 500;
+        padding: 0.2rem 0.55rem;
+        border-radius: var(--radius-badge);
+        border: 1px solid transparent;
+      }
+      .badge-primary {
+        background: var(--primary);
+        color: white;
+      }
+      .badge-secondary {
+        background: var(--secondary);
+        color: white;
+      }
+      .badge-accent {
+        background: var(--accent);
+        color: var(--accent-content);
+      }
+      .badge-ghost {
+        border-color: var(--base-300);
+        background: transparent;
+        color: var(--base-content);
+      }
+      .badge-outline {
+        border-color: currentColor;
+        background: transparent;
+        color: var(--primary);
+      }
+      .badge-info {
+        background: var(--info);
+        color: var(--info-content);
+      }
+      .badge-success {
+        background: var(--success);
+        color: var(--success-content);
+      }
+      .badge-warning {
+        background: var(--warning);
+        color: var(--warning-content);
+      }
+      .badge-error {
+        background: var(--error);
+        color: var(--error-content);
+      }
+      .badge-lg {
+        font-size: 1rem;
+        padding: 0.4rem 0.9rem;
+      }
+      .badge-sm {
+        font-size: 0.65rem;
+        padding: 0.1rem 0.4rem;
+      }
+
+      /* Inputs */
+      .input,
+      .select,
+      .textarea {
+        font-family: var(--font);
+        font-size: 0.875rem;
+        background: var(--base-100);
+        color: var(--base-content);
+        border: 1.5px solid var(--base-300);
+        border-radius: var(--radius-btn);
+        padding: 0.625rem 0.875rem;
+        width: 100%;
+        transition:
+          border-color 0.15s,
+          box-shadow 0.15s;
+        outline: none;
+      }
+      .input:focus,
+      .select:focus,
+      .textarea:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(87, 13, 248, 0.12);
+      }
+      .input-bordered {
+        border-color: var(--base-300);
+      }
+      .input-ghost {
+        border-color: transparent;
+        background: var(--base-200);
+      }
+      .input-primary {
+        border-color: var(--primary);
+      }
+      .input-error {
+        border-color: var(--error);
+      }
+      .input-success {
+        border-color: var(--success);
+      }
+      .textarea {
+        resize: vertical;
+        min-height: 80px;
+      }
+      .form-control {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+      }
+      .label {
+        font-size: 0.8rem;
+        font-weight: 500;
+        opacity: 0.7;
+      }
+
+      /* Toggle */
+      .toggle-wrap {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        cursor: pointer;
+      }
+      .toggle {
+        position: relative;
+        display: inline-block;
+        width: 44px;
+        height: 24px;
+      }
+      .toggle input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .toggle-slider {
+        position: absolute;
+        inset: 0;
+        background: var(--base-300);
+        border-radius: 99px;
+        transition: background 0.2s;
+      }
+      .toggle-slider::before {
+        content: "";
+        position: absolute;
+        height: 18px;
+        width: 18px;
+        left: 3px;
+        bottom: 3px;
+        background: white;
+        border-radius: 50%;
+        transition: transform 0.2s;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      }
+      .toggle input:checked + .toggle-slider {
+        background: var(--primary);
+      }
+      .toggle input:checked + .toggle-slider::before {
+        transform: translateX(20px);
+      }
+
+      /* Checkbox */
+      .checkbox {
+        width: 20px;
+        height: 20px;
+        border-radius: 4px;
+        border: 1.5px solid var(--base-300);
+        cursor: pointer;
+        appearance: none;
+        background: var(--base-100);
+        transition: all 0.15s;
+        position: relative;
+      }
+      .checkbox:checked {
+        background: var(--primary);
+        border-color: var(--primary);
+      }
+      .checkbox:checked::after {
+        content: "";
+        position: absolute;
+        left: 5px;
+        top: 2px;
+        width: 6px;
+        height: 11px;
+        border: 2px solid white;
+        border-top: none;
+        border-left: none;
+        transform: rotate(45deg);
+      }
+
+      /* Radio */
+      .radio {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 1.5px solid var(--base-300);
+        cursor: pointer;
+        appearance: none;
+        background: var(--base-100);
+        transition: all 0.15s;
+        position: relative;
+      }
+      .radio:checked {
+        border-color: var(--primary);
+        border-width: 5px;
+      }
+
+      /* Range */
+      .range {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 6px;
+        border-radius: 99px;
+        background: var(--base-300);
+        outline: none;
+      }
+      .range::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--primary);
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(87, 13, 248, 0.3);
+      }
+
+      /* Select */
+      .select {
+        cursor: pointer;
+      }
+
+      /* Card */
+      .card {
+        background: var(--base-100);
+        border-radius: var(--radius-card);
+        border: 1px solid var(--base-300);
+        overflow: hidden;
+      }
+      .card-body {
+        padding: 1.5rem;
+      }
+      .card-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+      .card-actions {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 1rem;
+      }
+      .card-image {
+        width: 100%;
+        display: block;
+      }
+      .card-compact .card-body {
+        padding: 1rem;
+      }
+      .card-side {
+        display: flex;
+      }
+      .card-side .card-body {
+        flex: 1;
+      }
+
+      /* Alert */
+      .alert {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.875rem;
+        padding: 1rem 1.25rem;
+        border-radius: var(--radius-btn);
+        font-size: 0.875rem;
+      }
+      .alert-info {
+        background: rgba(58, 191, 248, 0.12);
+        color: #0369a1;
+        border: 1px solid rgba(58, 191, 248, 0.3);
+      }
+      .alert-success {
+        background: rgba(54, 211, 153, 0.12);
+        color: #166534;
+        border: 1px solid rgba(54, 211, 153, 0.3);
+      }
+      .alert-warning {
+        background: rgba(251, 189, 35, 0.12);
+        color: #854d0e;
+        border: 1px solid rgba(251, 189, 35, 0.3);
+      }
+      .alert-error {
+        background: rgba(248, 114, 114, 0.12);
+        color: #991b1b;
+        border: 1px solid rgba(248, 114, 114, 0.3);
+      }
+      .alert-icon {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+
+      /* Avatar */
+      .avatar {
+        position: relative;
+        display: inline-flex;
+      }
+      .avatar-inner {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 1rem;
+      }
+      .avatar-sm .avatar-inner {
+        width: 32px;
+        height: 32px;
+        font-size: 0.75rem;
+      }
+      .avatar-lg .avatar-inner {
+        width: 64px;
+        height: 64px;
+        font-size: 1.25rem;
+      }
+      .avatar-placeholder .avatar-inner {
+        background: var(--neutral);
+        color: white;
+      }
+      .avatar-online::after {
+        content: "";
+        position: absolute;
+        bottom: 2px;
+        right: 2px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--success);
+        border: 2px solid var(--base-100);
+      }
+      .avatar-group {
+        display: flex;
+      }
+      .avatar-group .avatar {
+        margin-left: -12px;
+      }
+      .avatar-group .avatar:first-child {
+        margin-left: 0;
+      }
+      .avatar-group .avatar-inner {
+        border: 2px solid var(--base-100);
+      }
+
+      /* Stat */
+      .stat-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 0;
+      }
+      .stat {
+        padding: 1.25rem 1.5rem;
+        border-right: 1px solid var(--base-300);
+        border-bottom: 1px solid var(--base-300);
+      }
+      .stat-title {
+        font-size: 0.8rem;
+        opacity: 0.6;
+        margin-bottom: 0.25rem;
+      }
+      .stat-value {
+        font-size: 2rem;
+        font-weight: 700;
+        line-height: 1.1;
+      }
+      .stat-desc {
+        font-size: 0.75rem;
+        opacity: 0.5;
+        margin-top: 0.25rem;
+      }
+      .stat-figure {
+        color: var(--primary);
+        opacity: 0.5;
+        font-size: 2.5rem;
+      }
+
+      /* Progress */
+      .progress-wrap {
+        width: 100%;
+        height: 8px;
+        background: var(--base-300);
+        border-radius: 99px;
+        overflow: hidden;
+      }
+      .progress-bar {
+        height: 100%;
+        border-radius: 99px;
+        transition: width 0.5s ease;
+      }
+      .progress-primary .progress-bar {
+        background: var(--primary);
+      }
+      .progress-success .progress-bar {
+        background: var(--success);
+      }
+      .progress-warning .progress-bar {
+        background: var(--warning);
+      }
+      .progress-error .progress-bar {
+        background: var(--error);
+      }
+
+      /* Steps */
+      .steps {
+        display: flex;
+        gap: 0;
+      }
+      .step {
+        flex: 1;
+        text-align: center;
+        font-size: 0.75rem;
+        position: relative;
+        padding-top: 2.5rem;
+      }
+      .step::before {
+        content: "";
+        position: absolute;
+        top: 11px;
+        left: 0;
+        right: 50%;
+        height: 2px;
+        background: var(--base-300);
+      }
+      .step:first-child::before {
+        display: none;
+      }
+      .step::after {
+        content: attr(data-step);
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: var(--base-300);
+        color: var(--base-content);
+        font-size: 0.7rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .step-primary::before {
+        background: var(--primary);
+      }
+      .step-primary::after {
+        background: var(--primary);
+        color: white;
+      }
+
+      /* Toast */
+      .toast {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.875rem 1.25rem;
+        border-radius: var(--radius-btn);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+        font-size: 0.875rem;
+        font-weight: 500;
+        background: var(--neutral);
+        color: white;
+        max-width: 320px;
+      }
+
+      /* Tooltip */
+      .tooltip-wrap {
+        position: relative;
+        display: inline-flex;
+      }
+      .tooltip-box {
+        position: absolute;
+        bottom: calc(100% + 8px);
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--neutral);
+        color: white;
+        font-size: 0.7rem;
+        padding: 0.3rem 0.6rem;
+        border-radius: 4px;
+        white-space: nowrap;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.15s;
+      }
+      .tooltip-wrap:hover .tooltip-box {
+        opacity: 1;
+      }
+
+      /* Tab */
+      .tabs {
+        display: flex;
+        gap: 0;
+        border-bottom: 2px solid var(--base-300);
+      }
+      .tab {
+        padding: 0.625rem 1.25rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -2px;
+        transition: all 0.15s;
+        color: var(--base-content);
+        opacity: 0.6;
+        text-decoration: none;
+      }
+      .tab:hover {
+        opacity: 0.9;
+      }
+      .tab.active {
+        border-bottom-color: var(--primary);
+        color: var(--primary);
+        opacity: 1;
+      }
+
+      /* Kbd */
+      .kbd {
+        display: inline-flex;
+        align-items: center;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        background: var(--base-200);
+        color: var(--base-content);
+        border: 1px solid var(--base-300);
+        border-bottom-width: 3px;
+        border-radius: 4px;
+        padding: 0.15rem 0.5rem;
+      }
+
+      /* Code block */
+      .mockup-code {
+        background: var(--neutral);
+        color: #e5e7eb;
+        border-radius: var(--radius-card);
+        padding: 1.25rem 1.5rem;
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+        line-height: 1.7;
+        overflow-x: auto;
+        position: relative;
+      }
+      .mockup-code::before {
+        content: "";
+        display: flex;
+        gap: 6px;
+        margin-bottom: 1rem;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #ff5f57;
+        box-shadow:
+          20px 0 #febc2e,
+          40px 0 #28c840;
+      }
+      .code-line {
+        display: block;
+      }
+      .code-comment {
+        color: #6b7280;
+      }
+      .code-keyword {
+        color: #c084fc;
+      }
+      .code-string {
+        color: #6ee7b7;
+      }
+      .code-tag {
+        color: #93c5fd;
+      }
+      .code-attr {
+        color: #fca5a5;
+      }
+
+      /* Menu */
+      .menu {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .menu-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.5rem 0.875rem;
+        border-radius: var(--radius-btn);
+        font-size: 0.875rem;
+        cursor: pointer;
+        transition: background 0.12s;
+        text-decoration: none;
+        color: var(--base-content);
+      }
+      .menu-item:hover {
+        background: var(--base-200);
+      }
+      .menu-item.active {
+        background: var(--primary);
+        color: white;
+      }
+      .menu-title {
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        opacity: 0.4;
+        padding: 0.5rem 0.875rem;
+      }
+
+      /* Divider */
+      .divider {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        color: var(--base-content);
+        opacity: 0.4;
+        font-size: 0.8rem;
+      }
+      .divider::before,
+      .divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--base-300);
+      }
+
+      /* Loading */
+      .loading {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        border: 2.5px solid var(--base-300);
+        border-top-color: var(--primary);
+        animation: spin 0.7s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Hero section special */
+      .hero-section {
+        padding: 4rem 0 3rem;
+        border-bottom: 1px solid var(--base-200);
+        margin-bottom: 4rem;
+      }
+      .hero-section h1 {
+        font-size: 3rem;
+        font-weight: 700;
+      }
+
+      /* Util */
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+      .grid-3 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 1rem;
+      }
+      .flex-gap {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        align-items: center;
+      }
+      .mt {
+        margin-top: 1rem;
+      }
+      .mt2 {
+        margin-top: 1.5rem;
+      }
+      code {
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+        background: var(--base-200);
+        padding: 0.1rem 0.4rem;
+        border-radius: 4px;
+        color: var(--primary);
+      }
+
+      .scrollbar-thin::-webkit-scrollbar {
+        width: 6px;
+      }
+      .scrollbar-thin::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .scrollbar-thin::-webkit-scrollbar-thumb {
+        background: var(--base-300);
+        border-radius: 99px;
+      }
+
+      /* Interactive theme picker */
+      .theme-picker {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+      .theme-dot {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 3px solid transparent;
+        transition:
+          transform 0.15s,
+          border-color 0.15s;
+      }
+      .theme-dot:hover {
+        transform: scale(1.1);
+      }
+      .theme-dot.active {
+        border-color: var(--base-content);
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        aside {
+          display: none;
+        }
+        main {
+          padding: 2rem 1.5rem;
+        }
+        .grid-2,
+        .grid-3 {
+          grid-template-columns: 1fr;
+        }
+        .nav-links {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav>
+      <a class="nav-logo" href="#">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <circle cx="14" cy="14" r="5" fill="#570df8" />
+          <circle cx="14" cy="4" r="3" fill="#570df8" opacity="0.7" />
+          <circle cx="14" cy="24" r="3" fill="#570df8" opacity="0.7" />
+          <circle cx="4" cy="14" r="3" fill="#570df8" opacity="0.7" />
+          <circle cx="24" cy="14" r="3" fill="#570df8" opacity="0.7" />
+          <circle cx="6.1" cy="6.1" r="2.5" fill="#570df8" opacity="0.4" />
+          <circle cx="21.9" cy="6.1" r="2.5" fill="#570df8" opacity="0.4" />
+          <circle cx="6.1" cy="21.9" r="2.5" fill="#570df8" opacity="0.4" />
+          <circle cx="21.9" cy="21.9" r="2.5" fill="#570df8" opacity="0.4" />
+        </svg>
+        poise<span>UI</span> Design System
+      </a>
+      <div class="nav-links">
+        <a href="#foundations">Foundations</a>
+        <a href="#components">Components</a>
+        <a href="#patterns">Patterns</a>
+      </div>
+      <span class="nav-badge">v5.5</span>
+    </nav>
+
+    <div class="layout">
+      <!-- SIDEBAR -->
+      <aside class="scrollbar-thin">
+        <div class="sidebar-group">
+          <div class="sidebar-label">Introducción</div>
+          <a class="sidebar-link active" href="#overview">Visión general</a>
+          <a class="sidebar-link" href="#principles">Principios</a>
+        </div>
+        <div class="sidebar-group">
+          <div class="sidebar-label">Fundamentos</div>
+          <a class="sidebar-link" href="#colors">Colores</a>
+          <a class="sidebar-link" href="#typography">Tipografía</a>
+          <a class="sidebar-link" href="#spacing">Espaciado</a>
+          <a class="sidebar-link" href="#radius">Border radius</a>
+          <a class="sidebar-link" href="#shadows">Sombras</a>
+        </div>
+        <div class="sidebar-group">
+          <div class="sidebar-label">Componentes</div>
+          <a class="sidebar-link" href="#buttons">Botones</a>
+          <a class="sidebar-link" href="#badges">Badges</a>
+          <a class="sidebar-link" href="#forms">Formularios</a>
+          <a class="sidebar-link" href="#cards">Cards</a>
+          <a class="sidebar-link" href="#alerts">Alertas</a>
+          <a class="sidebar-link" href="#avatars">Avatares</a>
+          <a class="sidebar-link" href="#navigation">Navegación</a>
+          <a class="sidebar-link" href="#feedback">Feedback</a>
+          <a class="sidebar-link" href="#code">Código</a>
+        </div>
+        <div class="sidebar-group">
+          <div class="sidebar-label">Patrones</div>
+          <a class="sidebar-link" href="#patterns">Composición</a>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main>
+        <!-- OVERVIEW -->
+        <section id="overview">
+          <div class="hero-section">
+            <span class="tag">Design System</span>
+            <h1>poiseUI Style</h1>
+            <p class="subtitle" style="max-width: 520px; margin-top: 0.75rem">
+              Un sistema de diseño completo basado en el lenguaje visual de
+              poiseUI. Semántico, componible, con soporte multitema y sin
+              dependencias de JavaScript.
+            </p>
+            <div class="flex-gap" style="margin-top: 1.5rem">
+              <a class="btn btn-primary" href="#components">Ver componentes</a>
+              <a class="btn btn-ghost" href="#colors">Explorar tokens</a>
+            </div>
+          </div>
+        </section>
+
+        <!-- PRINCIPIOS -->
+        <section id="principles">
+          <div class="section-header">
+            <span class="tag">Guía</span>
+            <h2>Principios de diseño</h2>
+          </div>
+          <div class="grid-3">
+            <div class="card">
+              <div class="card-body">
+                <div style="font-size: 1.5rem; margin-bottom: 0.5rem">⚡</div>
+                <div class="card-title" style="font-size: 0.95rem">
+                  Semántico
+                </div>
+                <p style="font-size: 0.82rem; opacity: 0.65">
+                  Los nombres de clase describen el significado, no la
+                  apariencia. <code>btn-primary</code> no
+                  <code>bg-purple-600</code>.
+                </p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body">
+                <div style="font-size: 1.5rem; margin-bottom: 0.5rem">🎨</div>
+                <div class="card-title" style="font-size: 0.95rem">
+                  Multitema
+                </div>
+                <p style="font-size: 0.82rem; opacity: 0.65">
+                  Variables CSS para todos los colores. Cambio de tema sin
+                  añadir clases adicionales al HTML.
+                </p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body">
+                <div style="font-size: 1.5rem; margin-bottom: 0.5rem">🧩</div>
+                <div class="card-title" style="font-size: 0.95rem">
+                  Componible
+                </div>
+                <p style="font-size: 0.82rem; opacity: 0.65">
+                  Los modificadores de utilidad de Tailwind CSS amplían cada
+                  componente sin sobreescribir el sistema.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- COLORS -->
+        <section id="colors">
+          <div class="section-header">
+            <span class="tag">Tokens</span>
+            <h2>Sistema de color</h2>
+            <p class="subtitle">
+              Colores semánticos basados en variables CSS. Todos los componentes
+              los usan automáticamente.
+            </p>
+          </div>
+
+          <h3>Colores de marca</h3>
+          <div class="color-grid">
+            <div class="color-swatch">
+              <div
+                class="swatch-block"
+                style="background: var(--primary)"
+              ></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Primary</div>
+                <div class="swatch-val">--primary</div>
+                <div class="swatch-val">#570df8</div>
+              </div>
+            </div>
+            <div class="color-swatch">
+              <div
+                class="swatch-block"
+                style="background: var(--primary-focus)"
+              ></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Primary Focus</div>
+                <div class="swatch-val">--primary-focus</div>
+                <div class="swatch-val">#4506cb</div>
+              </div>
+            </div>
+            <div class="color-swatch">
+              <div
+                class="swatch-block"
+                style="background: var(--secondary)"
+              ></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Secondary</div>
+                <div class="swatch-val">--secondary</div>
+                <div class="swatch-val">#f000b8</div>
+              </div>
+            </div>
+            <div class="color-swatch">
+              <div class="swatch-block" style="background: var(--accent)"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Accent</div>
+                <div class="swatch-val">--accent</div>
+                <div class="swatch-val">#37cdbe</div>
+              </div>
+            </div>
+            <div class="color-swatch">
+              <div
+                class="swatch-block"
+                style="background: var(--neutral)"
+              ></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Neutral</div>
+                <div class="swatch-val">--neutral</div>
+                <div class="swatch-val">#3d4451</div>
+              </div>
+            </div>
+          </div>
+
+          <h3 style="margin-top: 2rem">Colores base</h3>
+          <div class="color-grid">
+            <div class="color-swatch">
+              <div
+                class="swatch-block"
+                style="
+                  background: var(--base-100);
+                  border: 1px solid var(--base-300);
+                "
+              ></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Base 100</div>
+                <div class="swatch-val">--base-100</div>
+                <div class="swatch-val">#ffffff</div>
+              </div>
+            </div>
+            <div class="color-swatch">
+              <div
+                class="swatch-block"
+                style="background: var(--base-200)"
+              ></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Base 200</div>
+                <div class="swatch-val">--base-200</div>
+                <div class="swatch-val">#f2f2f2</div>
+              </div>
+            </div>
+            <div class="color-swatch">
+              <div
+                class="swatch-block"
+                style="background: var(--base-300)"
+              ></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Base 300</div>
+                <div class="swatch-val">--base-300</div>
+                <div class="swatch-val">#e5e6e6</div>
+              </div>
+            </div>
+            <div class="color-swatch">
+              <div
+                class="swatch-block"
+                style="background: var(--base-content)"
+              ></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Base Content</div>
+                <div class="swatch-val">--base-content</div>
+                <div class="swatch-val">#1f2937</div>
+              </div>
+            </div>
+          </div>
+
+          <h3 style="margin-top: 2rem">Colores de estado</h3>
+          <div class="color-grid">
+            <div class="color-swatch">
+              <div class="swatch-block" style="background: var(--info)"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Info</div>
+                <div class="swatch-val">--info</div>
+                <div class="swatch-val">#3abff8</div>
+              </div>
+            </div>
+            <div class="color-swatch">
+              <div
+                class="swatch-block"
+                style="background: var(--success)"
+              ></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Success</div>
+                <div class="swatch-val">--success</div>
+                <div class="swatch-val">#36d399</div>
+              </div>
+            </div>
+            <div class="color-swatch">
+              <div
+                class="swatch-block"
+                style="background: var(--warning)"
+              ></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Warning</div>
+                <div class="swatch-val">--warning</div>
+                <div class="swatch-val">#fbbd23</div>
+              </div>
+            </div>
+            <div class="color-swatch">
+              <div class="swatch-block" style="background: var(--error)"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Error</div>
+                <div class="swatch-val">--error</div>
+                <div class="swatch-val">#f87272</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TYPOGRAPHY -->
+        <section id="typography">
+          <div class="section-header">
+            <span class="tag">Tokens</span>
+            <h2>Tipografía</h2>
+            <p class="subtitle">
+              DM Sans como fuente display y body. DM Mono para código.
+            </p>
+          </div>
+          <div class="type-scale">
+            <div class="type-row">
+              <div class="type-meta">
+                <div class="type-label">Display / H1</div>
+                <div class="type-spec">3rem · 700 · 1.2lh</div>
+              </div>
+              <div
+                class="type-sample"
+                style="font-size: 3rem; font-weight: 700; line-height: 1.2"
+              >
+                Heading uno
+              </div>
+            </div>
+            <div class="type-row">
+              <div class="type-meta">
+                <div class="type-label">H2</div>
+                <div class="type-spec">1.75rem · 600 · 1.3lh</div>
+              </div>
+              <div
+                class="type-sample"
+                style="font-size: 1.75rem; font-weight: 600"
+              >
+                Heading dos
+              </div>
+            </div>
+            <div class="type-row">
+              <div class="type-meta">
+                <div class="type-label">H3</div>
+                <div class="type-spec">1.25rem · 600 · 1.4lh</div>
+              </div>
+              <div
+                class="type-sample"
+                style="font-size: 1.25rem; font-weight: 600"
+              >
+                Heading tres
+              </div>
+            </div>
+            <div class="type-row">
+              <div class="type-meta">
+                <div class="type-label">Body LG</div>
+                <div class="type-spec">1.125rem · 400 · 1.7lh</div>
+              </div>
+              <div class="type-sample" style="font-size: 1.125rem">
+                El texto largo explica el contexto con claridad.
+              </div>
+            </div>
+            <div class="type-row">
+              <div class="type-meta">
+                <div class="type-label">Body</div>
+                <div class="type-spec">1rem · 400 · 1.6lh</div>
+              </div>
+              <div class="type-sample">
+                Texto base de la interfaz, legible en cualquier contexto.
+              </div>
+            </div>
+            <div class="type-row">
+              <div class="type-meta">
+                <div class="type-label">Small</div>
+                <div class="type-spec">0.875rem · 400</div>
+              </div>
+              <div class="type-sample" style="font-size: 0.875rem">
+                Texto pequeño para metadatos y etiquetas.
+              </div>
+            </div>
+            <div class="type-row">
+              <div class="type-meta">
+                <div class="type-label">Caption</div>
+                <div class="type-spec">0.75rem · 400 · opacidad 0.6</div>
+              </div>
+              <div class="type-sample" style="font-size: 0.75rem; opacity: 0.6">
+                Descripciones auxiliares, fechas, hints.
+              </div>
+            </div>
+            <div class="type-row">
+              <div class="type-meta">
+                <div class="type-label">Mono</div>
+                <div class="type-spec">DM Mono · 0.875rem</div>
+              </div>
+              <div
+                class="type-sample"
+                style="
+                  font-family: var(--font-mono);
+                  font-size: 0.875rem;
+                  color: var(--primary);
+                "
+              >
+                btn-primary · card · toggle
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SPACING -->
+        <section id="spacing">
+          <div class="section-header">
+            <span class="tag">Tokens</span>
+            <h2>Espaciado</h2>
+            <p class="subtitle">
+              Escala de 8px. Todos los valores son múltiplos del módulo base.
+            </p>
+          </div>
+          <div class="space-grid">
+            <div class="space-row">
+              <span class="space-name">space-1</span>
+              <div class="space-bar-wrap">
+                <div class="space-bar" style="width: 4px"></div>
+              </div>
+              <span class="space-px">4px</span>
+            </div>
+            <div class="space-row">
+              <span class="space-name">space-2</span>
+              <div class="space-bar-wrap">
+                <div class="space-bar" style="width: 8px"></div>
+              </div>
+              <span class="space-px">8px</span>
+            </div>
+            <div class="space-row">
+              <span class="space-name">space-3</span>
+              <div class="space-bar-wrap">
+                <div class="space-bar" style="width: 12px"></div>
+              </div>
+              <span class="space-px">12px</span>
+            </div>
+            <div class="space-row">
+              <span class="space-name">space-4</span>
+              <div class="space-bar-wrap">
+                <div class="space-bar" style="width: 16px"></div>
+              </div>
+              <span class="space-px">16px</span>
+            </div>
+            <div class="space-row">
+              <span class="space-name">space-5</span>
+              <div class="space-bar-wrap">
+                <div class="space-bar" style="width: 20px"></div>
+              </div>
+              <span class="space-px">20px</span>
+            </div>
+            <div class="space-row">
+              <span class="space-name">space-6</span>
+              <div class="space-bar-wrap">
+                <div class="space-bar" style="width: 24px"></div>
+              </div>
+              <span class="space-px">24px</span>
+            </div>
+            <div class="space-row">
+              <span class="space-name">space-8</span>
+              <div class="space-bar-wrap">
+                <div class="space-bar" style="width: 32px"></div>
+              </div>
+              <span class="space-px">32px</span>
+            </div>
+            <div class="space-row">
+              <span class="space-name">space-10</span>
+              <div class="space-bar-wrap">
+                <div class="space-bar" style="width: 40px"></div>
+              </div>
+              <span class="space-px">40px</span>
+            </div>
+            <div class="space-row">
+              <span class="space-name">space-12</span>
+              <div class="space-bar-wrap">
+                <div class="space-bar" style="width: 48px"></div>
+              </div>
+              <span class="space-px">48px</span>
+            </div>
+            <div class="space-row">
+              <span class="space-name">space-16</span>
+              <div class="space-bar-wrap">
+                <div class="space-bar" style="width: 64px"></div>
+              </div>
+              <span class="space-px">64px</span>
+            </div>
+            <div class="space-row">
+              <span class="space-name">space-24</span>
+              <div class="space-bar-wrap">
+                <div class="space-bar" style="width: 96px"></div>
+              </div>
+              <span class="space-px">96px</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- RADIUS -->
+        <section id="radius">
+          <div class="section-header">
+            <span class="tag">Tokens</span>
+            <h2>Border Radius</h2>
+          </div>
+          <div class="radius-grid">
+            <div>
+              <div
+                style="
+                  width: 80px;
+                  height: 80px;
+                  background: rgba(87, 13, 248, 0.12);
+                  border: 2px solid var(--primary);
+                  border-radius: 2px;
+                  display: flex;
+                  align-items: flex-end;
+                  justify-content: center;
+                  padding-bottom: 8px;
+                "
+              >
+                <span
+                  style="
+                    font-size: 0.65rem;
+                    font-family: var(--font-mono);
+                    color: var(--primary);
+                  "
+                  >2px</span
+                >
+              </div>
+              <div style="font-size: 0.75rem; margin-top: 0.4rem">none</div>
+            </div>
+            <div>
+              <div
+                style="
+                  width: 80px;
+                  height: 80px;
+                  background: rgba(87, 13, 248, 0.12);
+                  border: 2px solid var(--primary);
+                  border-radius: 4px;
+                  display: flex;
+                  align-items: flex-end;
+                  justify-content: center;
+                  padding-bottom: 8px;
+                "
+              >
+                <span
+                  style="
+                    font-size: 0.65rem;
+                    font-family: var(--font-mono);
+                    color: var(--primary);
+                  "
+                  >4px</span
+                >
+              </div>
+              <div style="font-size: 0.75rem; margin-top: 0.4rem">sm</div>
+            </div>
+            <div>
+              <div
+                style="
+                  width: 80px;
+                  height: 80px;
+                  background: rgba(87, 13, 248, 0.12);
+                  border: 2px solid var(--primary);
+                  border-radius: 8px;
+                  display: flex;
+                  align-items: flex-end;
+                  justify-content: center;
+                  padding-bottom: 8px;
+                "
+              >
+                <span
+                  style="
+                    font-size: 0.65rem;
+                    font-family: var(--font-mono);
+                    color: var(--primary);
+                  "
+                  >8px</span
+                >
+              </div>
+              <div style="font-size: 0.75rem; margin-top: 0.4rem">btn (md)</div>
+            </div>
+            <div>
+              <div
+                style="
+                  width: 80px;
+                  height: 80px;
+                  background: rgba(87, 13, 248, 0.12);
+                  border: 2px solid var(--primary);
+                  border-radius: 16px;
+                  display: flex;
+                  align-items: flex-end;
+                  justify-content: center;
+                  padding-bottom: 8px;
+                "
+              >
+                <span
+                  style="
+                    font-size: 0.65rem;
+                    font-family: var(--font-mono);
+                    color: var(--primary);
+                  "
+                  >16px</span
+                >
+              </div>
+              <div style="font-size: 0.75rem; margin-top: 0.4rem">
+                card (lg)
+              </div>
+            </div>
+            <div>
+              <div
+                style="
+                  width: 80px;
+                  height: 80px;
+                  background: rgba(87, 13, 248, 0.12);
+                  border: 2px solid var(--primary);
+                  border-radius: 40px;
+                  display: flex;
+                  align-items: flex-end;
+                  justify-content: center;
+                  padding-bottom: 8px;
+                "
+              >
+                <span
+                  style="
+                    font-size: 0.65rem;
+                    font-family: var(--font-mono);
+                    color: var(--primary);
+                  "
+                  >99px</span
+                >
+              </div>
+              <div style="font-size: 0.75rem; margin-top: 0.4rem">
+                badge (full)
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SHADOWS -->
+        <section id="shadows">
+          <div class="section-header">
+            <span class="tag">Tokens</span>
+            <h2>Sombras</h2>
+            <p class="subtitle">
+              Uso minimalista. Solo para profundidad funcional, nunca
+              decorativa.
+            </p>
+          </div>
+          <div class="flex-gap">
+            <div
+              style="
+                width: 120px;
+                height: 80px;
+                border-radius: 12px;
+                background: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.7rem;
+                font-family: var(--font-mono);
+                box-shadow: none;
+                border: 1px solid var(--base-300);
+              "
+            >
+              none
+            </div>
+            <div
+              style="
+                width: 120px;
+                height: 80px;
+                border-radius: 12px;
+                background: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.7rem;
+                font-family: var(--font-mono);
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+              "
+            >
+              sm
+            </div>
+            <div
+              style="
+                width: 120px;
+                height: 80px;
+                border-radius: 12px;
+                background: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.7rem;
+                font-family: var(--font-mono);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+              "
+            >
+              md
+            </div>
+            <div
+              style="
+                width: 120px;
+                height: 80px;
+                border-radius: 12px;
+                background: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.7rem;
+                font-family: var(--font-mono);
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+              "
+            >
+              lg
+            </div>
+            <div
+              style="
+                width: 120px;
+                height: 80px;
+                border-radius: 12px;
+                background: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.7rem;
+                font-family: var(--font-mono);
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+              "
+            >
+              xl
+            </div>
+          </div>
+        </section>
+
+        <!-- BUTTONS -->
+        <section id="buttons">
+          <div class="section-header">
+            <span class="tag">Componentes</span>
+            <h2>Botones</h2>
+          </div>
+
+          <div class="component-group">
+            <h3>Variantes de color</h3>
+            <div class="demo-surface">
+              <button class="btn btn-primary">Primary</button>
+              <button class="btn btn-secondary">Secondary</button>
+              <button class="btn btn-accent">Accent</button>
+              <button class="btn btn-neutral">Neutral</button>
+              <button class="btn btn-ghost">Ghost</button>
+              <button class="btn btn-outline">Outline</button>
+              <button class="btn btn-link">Link</button>
+            </div>
+          </div>
+
+          <div class="component-group">
+            <h3>Variantes de estado</h3>
+            <div class="demo-surface">
+              <button class="btn btn-info">Info</button>
+              <button class="btn btn-success">Success</button>
+              <button class="btn btn-warning">Warning</button>
+              <button class="btn btn-error">Error</button>
+              <button class="btn btn-primary btn-disabled">Disabled</button>
+            </div>
+          </div>
+
+          <div class="component-group">
+            <h3>Tamaños</h3>
+            <div class="demo-surface">
+              <button class="btn btn-primary btn-sm">Small</button>
+              <button class="btn btn-primary">Default</button>
+              <button class="btn btn-primary btn-lg">Large</button>
+              <button class="btn btn-circle btn-primary">+</button>
+              <button class="btn btn-square btn-outline">✕</button>
+            </div>
+          </div>
+
+          <div class="component-group">
+            <h3>Con carga</h3>
+            <div class="demo-surface">
+              <button class="btn btn-primary" style="gap: 0.75rem">
+                <div
+                  class="loading"
+                  style="
+                    width: 16px;
+                    height: 16px;
+                    border-width: 2px;
+                    border-top-color: white;
+                    border-color: rgba(255, 255, 255, 0.3);
+                    border-top-color: white;
+                  "
+                ></div>
+                Procesando
+              </button>
+            </div>
+          </div>
+
+          <div class="mockup-code mt2">
+            <span class="code-line"
+              ><span class="code-comment">&lt;!-- Uso básico --&gt;</span></span
+            >
+            <span class="code-line"
+              ><span class="code-tag">&lt;button</span>
+              <span class="code-attr">class</span>=<span class="code-string"
+                >"btn btn-primary"</span
+              ><span class="code-tag">&gt;</span>Click<span class="code-tag"
+                >&lt;/button&gt;</span
+              ></span
+            >
+            <span class="code-line"
+              ><span class="code-tag">&lt;button</span>
+              <span class="code-attr">class</span>=<span class="code-string"
+                >"btn btn-primary btn-lg"</span
+              ><span class="code-tag">&gt;</span>Large<span class="code-tag"
+                >&lt;/button&gt;</span
+              ></span
+            >
+            <span class="code-line"
+              ><span class="code-tag">&lt;button</span>
+              <span class="code-attr">class</span>=<span class="code-string"
+                >"btn btn-outline btn-primary"</span
+              ><span class="code-tag">&gt;</span>Outline<span class="code-tag"
+                >&lt;/button&gt;</span
+              ></span
+            >
+          </div>
+        </section>
+
+        <!-- BADGES -->
+        <section id="badges">
+          <div class="section-header">
+            <span class="tag">Componentes</span>
+            <h2>Badges</h2>
+          </div>
+          <div class="demo-surface">
+            <span class="badge badge-primary">Primary</span>
+            <span class="badge badge-secondary">Secondary</span>
+            <span class="badge badge-accent">Accent</span>
+            <span class="badge badge-ghost">Ghost</span>
+            <span class="badge badge-outline">Outline</span>
+          </div>
+          <div class="demo-surface mt">
+            <span class="badge badge-info">Info</span>
+            <span class="badge badge-success">Success</span>
+            <span class="badge badge-warning">Warning</span>
+            <span class="badge badge-error">Error</span>
+            <span class="badge badge-sm badge-primary">Pequeño</span>
+            <span class="badge badge-lg badge-primary">Grande</span>
+          </div>
+        </section>
+
+        <!-- FORMS -->
+        <section id="forms">
+          <div class="section-header">
+            <span class="tag">Componentes</span>
+            <h2>Formularios</h2>
+          </div>
+
+          <div class="grid-2">
+            <div style="display: flex; flex-direction: column; gap: 1rem">
+              <div class="form-control">
+                <label class="label">Nombre completo</label>
+                <input class="input" type="text" placeholder="Tu nombre aquí" />
+              </div>
+              <div class="form-control">
+                <label class="label">Email</label>
+                <input
+                  class="input input-primary"
+                  type="email"
+                  placeholder="tu@email.com"
+                />
+              </div>
+              <div class="form-control">
+                <label class="label">Con error</label>
+                <input
+                  class="input input-error"
+                  type="text"
+                  value="valor incorrecto"
+                />
+              </div>
+              <div class="form-control">
+                <label class="label">Mensaje</label>
+                <textarea
+                  class="textarea"
+                  placeholder="Escribe aquí..."
+                ></textarea>
+              </div>
+              <div class="form-control">
+                <label class="label">Selección</label>
+                <select class="select">
+                  <option>Opción 1</option>
+                  <option>Opción 2</option>
+                  <option>Opción 3</option>
+                </select>
+              </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 1.5rem">
+              <div>
+                <h3>Toggles</h3>
+                <div
+                  style="
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.75rem;
+                    margin-top: 0.5rem;
+                  "
+                >
+                  <label class="toggle-wrap">
+                    <label class="toggle"
+                      ><input type="checkbox" checked /><span
+                        class="toggle-slider"
+                      ></span
+                    ></label>
+                    <span style="font-size: 0.875rem"
+                      >Activado por defecto</span
+                    >
+                  </label>
+                  <label class="toggle-wrap">
+                    <label class="toggle"
+                      ><input type="checkbox" /><span
+                        class="toggle-slider"
+                      ></span
+                    ></label>
+                    <span style="font-size: 0.875rem">Desactivado</span>
+                  </label>
+                </div>
+              </div>
+              <div>
+                <h3>Checkboxes</h3>
+                <div
+                  style="
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.75rem;
+                    margin-top: 0.5rem;
+                  "
+                >
+                  <label
+                    style="
+                      display: flex;
+                      align-items: center;
+                      gap: 0.75rem;
+                      cursor: pointer;
+                    "
+                  >
+                    <input type="checkbox" class="checkbox" checked />
+                    <span style="font-size: 0.875rem">Opción seleccionada</span>
+                  </label>
+                  <label
+                    style="
+                      display: flex;
+                      align-items: center;
+                      gap: 0.75rem;
+                      cursor: pointer;
+                    "
+                  >
+                    <input type="checkbox" class="checkbox" />
+                    <span style="font-size: 0.875rem"
+                      >Opción sin seleccionar</span
+                    >
+                  </label>
+                </div>
+              </div>
+              <div>
+                <h3>Radio</h3>
+                <div
+                  style="
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.75rem;
+                    margin-top: 0.5rem;
+                  "
+                >
+                  <label
+                    style="
+                      display: flex;
+                      align-items: center;
+                      gap: 0.75rem;
+                      cursor: pointer;
+                    "
+                  >
+                    <input type="radio" name="r1" class="radio" checked />
+                    <span style="font-size: 0.875rem">Primera opción</span>
+                  </label>
+                  <label
+                    style="
+                      display: flex;
+                      align-items: center;
+                      gap: 0.75rem;
+                      cursor: pointer;
+                    "
+                  >
+                    <input type="radio" name="r1" class="radio" />
+                    <span style="font-size: 0.875rem">Segunda opción</span>
+                  </label>
+                </div>
+              </div>
+              <div>
+                <h3>Range</h3>
+                <input type="range" class="range" style="margin-top: 0.5rem" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- CARDS -->
+        <section id="cards">
+          <div class="section-header">
+            <span class="tag">Componentes</span>
+            <h2>Cards</h2>
+          </div>
+
+          <div class="grid-3">
+            <div class="card">
+              <div
+                style="
+                  height: 100px;
+                  background: linear-gradient(
+                    135deg,
+                    rgba(87, 13, 248, 0.15),
+                    rgba(240, 0, 184, 0.12)
+                  );
+                "
+              ></div>
+              <div class="card-body">
+                <div class="card-title">Card con imagen</div>
+                <p style="font-size: 0.82rem; opacity: 0.65">
+                  Una descripción breve del contenido de esta tarjeta.
+                </p>
+                <div class="card-actions">
+                  <button class="btn btn-primary btn-sm">Acción</button>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body">
+                <span
+                  class="badge badge-secondary"
+                  style="margin-bottom: 0.5rem"
+                  >Nuevo</span
+                >
+                <div class="card-title">Card con badge</div>
+                <p style="font-size: 0.82rem; opacity: 0.65">
+                  Contenido con indicador de estado o categoría visible.
+                </p>
+                <div class="card-actions">
+                  <button class="btn btn-ghost btn-sm">Cancelar</button>
+                  <button class="btn btn-primary btn-sm">Guardar</button>
+                </div>
+              </div>
+            </div>
+            <div class="card" style="background: var(--primary); color: white">
+              <div class="card-body">
+                <div class="card-title" style="color: white">
+                  Card de acento
+                </div>
+                <p style="font-size: 0.82rem; opacity: 0.75">
+                  Card con fondo de color de marca para énfasis especial.
+                </p>
+                <div class="card-actions">
+                  <button
+                    class="btn"
+                    style="
+                      background: white;
+                      color: var(--primary);
+                      border: none;
+                    "
+                  >
+                    Acción
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card mt2 card-side" style="max-width: 480px">
+            <div
+              style="
+                width: 120px;
+                flex-shrink: 0;
+                background: rgba(87, 13, 248, 0.1);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 2rem;
+              "
+            >
+              🎯
+            </div>
+            <div class="card-body">
+              <div class="card-title">Card horizontal</div>
+              <p style="font-size: 0.82rem; opacity: 0.65">
+                Variante side para contenido con media a la izquierda.
+              </p>
+              <div class="card-actions">
+                <button class="btn btn-primary btn-sm">Ver más</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ALERTS -->
+        <section id="alerts">
+          <div class="section-header">
+            <span class="tag">Componentes</span>
+            <h2>Alertas</h2>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 0.75rem">
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 20 20" fill="currentColor">
+                <path
+                  fill-rule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <div>
+                <div style="font-weight: 600; margin-bottom: 2px">Info</div>
+                Nueva versión disponible. Actualiza para obtener mejoras de
+                rendimiento.
+              </div>
+            </div>
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 20 20" fill="currentColor">
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <div>
+                <div style="font-weight: 600; margin-bottom: 2px">Éxito</div>
+                Los cambios se guardaron correctamente en la base de datos.
+              </div>
+            </div>
+            <div class="alert alert-warning">
+              <svg class="alert-icon" viewBox="0 0 20 20" fill="currentColor">
+                <path
+                  fill-rule="evenodd"
+                  d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <div>
+                <div style="font-weight: 600; margin-bottom: 2px">
+                  Advertencia
+                </div>
+                Tu plan expira en 3 días. Renueva para evitar interrupciones.
+              </div>
+            </div>
+            <div class="alert alert-error">
+              <svg class="alert-icon" viewBox="0 0 20 20" fill="currentColor">
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <div>
+                <div style="font-weight: 600; margin-bottom: 2px">Error</div>
+                No se pudo completar la operación. Verifica tu conexión e
+                intenta de nuevo.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- AVATARS -->
+        <section id="avatars">
+          <div class="section-header">
+            <span class="tag">Componentes</span>
+            <h2>Avatares</h2>
+          </div>
+          <div class="demo-surface">
+            <div class="avatar">
+              <div
+                class="avatar-inner"
+                style="background: #570df8; color: white"
+              >
+                A
+              </div>
+            </div>
+            <div class="avatar avatar-online">
+              <div
+                class="avatar-inner"
+                style="background: #f000b8; color: white"
+              >
+                MR
+              </div>
+            </div>
+            <div class="avatar avatar-sm avatar-placeholder">
+              <div class="avatar-inner">JD</div>
+            </div>
+            <div class="avatar avatar-lg">
+              <div
+                class="avatar-inner"
+                style="
+                  background: var(--accent);
+                  color: var(--accent-content);
+                  font-size: 1.5rem;
+                "
+              >
+                🧑
+              </div>
+            </div>
+          </div>
+          <div class="demo-surface mt">
+            <div style="font-size: 0.8rem; opacity: 0.6; margin-right: 0.5rem">
+              Avatar group:
+            </div>
+            <div class="avatar-group">
+              <div class="avatar">
+                <div
+                  class="avatar-inner"
+                  style="background: #570df8; color: white"
+                >
+                  A
+                </div>
+              </div>
+              <div class="avatar">
+                <div
+                  class="avatar-inner"
+                  style="background: #f000b8; color: white"
+                >
+                  B
+                </div>
+              </div>
+              <div class="avatar">
+                <div
+                  class="avatar-inner"
+                  style="background: #37cdbe; color: #163835"
+                >
+                  C
+                </div>
+              </div>
+              <div class="avatar">
+                <div
+                  class="avatar-inner"
+                  style="background: #3d4451; color: white"
+                >
+                  +3
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- STATS -->
+        <section id="navigation">
+          <div class="section-header">
+            <span class="tag">Componentes</span>
+            <h2>Estadísticas</h2>
+          </div>
+          <div class="card">
+            <div class="stat-grid">
+              <div class="stat">
+                <div class="stat-title">Descargas NPM</div>
+                <div class="stat-value" style="color: var(--primary)">4.7M</div>
+                <div class="stat-desc">↗︎ 28% este mes</div>
+              </div>
+              <div class="stat">
+                <div class="stat-title">GitHub Stars</div>
+                <div class="stat-value">35K</div>
+                <div class="stat-desc">↗︎ 400 esta semana</div>
+              </div>
+              <div class="stat">
+                <div class="stat-title">Componentes</div>
+                <div class="stat-value" style="color: var(--accent)">65</div>
+                <div class="stat-desc">↗︎ 5 nuevos en v5</div>
+              </div>
+              <div class="stat">
+                <div class="stat-title">Temas incluidos</div>
+                <div class="stat-value">35+</div>
+                <div class="stat-desc">Dark mode gratis</div>
+              </div>
+            </div>
+          </div>
+
+          <h3 style="margin-top: 2rem">Progress</h3>
+          <div style="display: flex; flex-direction: column; gap: 1rem">
+            <div>
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  font-size: 0.8rem;
+                  margin-bottom: 4px;
+                "
+              >
+                <span>Primary</span><span>70%</span>
+              </div>
+              <div class="progress-wrap progress-primary">
+                <div class="progress-bar" style="width: 70%"></div>
+              </div>
+            </div>
+            <div>
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  font-size: 0.8rem;
+                  margin-bottom: 4px;
+                "
+              >
+                <span>Success</span><span>90%</span>
+              </div>
+              <div class="progress-wrap progress-success">
+                <div class="progress-bar" style="width: 90%"></div>
+              </div>
+            </div>
+            <div>
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  font-size: 0.8rem;
+                  margin-bottom: 4px;
+                "
+              >
+                <span>Warning</span><span>45%</span>
+              </div>
+              <div class="progress-wrap progress-warning">
+                <div class="progress-bar" style="width: 45%"></div>
+              </div>
+            </div>
+            <div>
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  font-size: 0.8rem;
+                  margin-bottom: 4px;
+                "
+              >
+                <span>Error</span><span>20%</span>
+              </div>
+              <div class="progress-wrap progress-error">
+                <div class="progress-bar" style="width: 20%"></div>
+              </div>
+            </div>
+          </div>
+
+          <h3 style="margin-top: 2rem">Steps</h3>
+          <div class="steps">
+            <div class="step step-primary" data-step="1">Registro</div>
+            <div class="step step-primary" data-step="2">Perfil</div>
+            <div class="step step-primary" data-step="3">Plan</div>
+            <div class="step" data-step="4">Pago</div>
+            <div class="step" data-step="5">Listo</div>
+          </div>
+
+          <h3 style="margin-top: 2rem">Tabs</h3>
+          <div class="tabs" id="demo-tabs">
+            <a class="tab active" data-tab="0">Componentes</a>
+            <a class="tab" data-tab="1">Documentación</a>
+            <a class="tab" data-tab="2">Temas</a>
+            <a class="tab" data-tab="3">Blog</a>
+          </div>
+
+          <h3 style="margin-top: 2rem">Menu</h3>
+          <div style="max-width: 220px" class="card">
+            <div class="card-body" style="padding: 0.75rem">
+              <div class="menu-title">Dashboard</div>
+              <div class="menu">
+                <a class="menu-item active" href="#">📊 Resumen</a>
+                <a class="menu-item" href="#"
+                  >📬 Mensajes
+                  <span
+                    class="badge badge-primary badge-sm"
+                    style="margin-left: auto"
+                    >99+</span
+                  ></a
+                >
+                <a class="menu-item" href="#">👤 Perfil</a>
+                <a class="menu-item" href="#">⚙️ Ajustes</a>
+              </div>
+              <div class="menu-title" style="margin-top: 0.5rem">Contenido</div>
+              <div class="menu">
+                <a class="menu-item" href="#">📁 Proyectos</a>
+                <a class="menu-item" href="#">📄 Documentos</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- FEEDBACK -->
+        <section id="feedback">
+          <div class="section-header">
+            <span class="tag">Componentes</span>
+            <h2>Feedback y utilidades</h2>
+          </div>
+
+          <h3>Loading</h3>
+          <div class="demo-surface">
+            <div class="loading"></div>
+            <div
+              class="loading"
+              style="
+                width: 16px;
+                height: 16px;
+                border-width: 2px;
+                border-top-color: var(--secondary);
+                border-color: rgba(240, 0, 184, 0.2);
+                border-top-color: var(--secondary);
+              "
+            ></div>
+            <div
+              class="loading"
+              style="
+                width: 40px;
+                height: 40px;
+                border-top-color: var(--success);
+                border-color: rgba(54, 211, 153, 0.2);
+                border-top-color: var(--success);
+                border-width: 3px;
+              "
+            ></div>
+          </div>
+
+          <h3 style="margin-top: 1.5rem">Toast</h3>
+          <div class="flex-gap">
+            <div class="toast">✅ Cambios guardados correctamente</div>
+            <div class="toast" style="background: var(--error)">
+              ❌ Error al procesar
+            </div>
+          </div>
+
+          <h3 style="margin-top: 1.5rem">Tooltip</h3>
+          <div class="demo-surface">
+            <div class="tooltip-wrap">
+              <button class="btn btn-primary btn-sm">Pasa el cursor</button>
+              <div class="tooltip-box">Este es un tooltip</div>
+            </div>
+            <div class="tooltip-wrap">
+              <button class="btn btn-ghost btn-sm">Otro elemento</button>
+              <div class="tooltip-box">Más información aquí</div>
+            </div>
+          </div>
+
+          <h3 style="margin-top: 1.5rem">KBD — Atajos de teclado</h3>
+          <div class="flex-gap">
+            <div><kbd class="kbd">⌘</kbd> + <kbd class="kbd">K</kbd></div>
+            <div>
+              <kbd class="kbd">Ctrl</kbd> + <kbd class="kbd">Shift</kbd> +
+              <kbd class="kbd">P</kbd>
+            </div>
+            <div><kbd class="kbd">Tab</kbd></div>
+            <div><kbd class="kbd">Enter</kbd></div>
+            <div><kbd class="kbd">Esc</kbd></div>
+          </div>
+
+          <h3 style="margin-top: 1.5rem">Divider</h3>
+          <div class="divider">O continúa con</div>
+          <div style="display: flex; gap: 0.75rem; margin-top: 0.75rem">
+            <button
+              class="btn btn-outline"
+              style="
+                flex: 1;
+                border-color: var(--base-300);
+                color: var(--base-content);
+              "
+            >
+              Google
+            </button>
+            <button
+              class="btn btn-outline"
+              style="
+                flex: 1;
+                border-color: var(--base-300);
+                color: var(--base-content);
+              "
+            >
+              GitHub
+            </button>
+          </div>
+        </section>
+
+        <!-- CODE -->
+        <section id="code">
+          <div class="section-header">
+            <span class="tag">Componentes</span>
+            <h2>Bloques de código</h2>
+          </div>
+          <div class="mockup-code">
+            <span class="code-line"
+              ><span class="code-comment">// Instalación de poiseUI</span></span
+            >
+            <span class="code-line"
+              ><span class="code-keyword">npm</span> i -D
+              <span class="code-string">poiseui@latest</span></span
+            >
+            <span class="code-line"></span>
+            <span class="code-line"
+              ><span class="code-comment">// En tu app.css</span></span
+            >
+            <span class="code-line"
+              ><span class="code-tag">@import</span>
+              <span class="code-string">"tailwindcss"</span>;</span
+            >
+            <span class="code-line"
+              ><span class="code-tag">@plugin</span>
+              <span class="code-string">"poiseui"</span>;</span
+            >
+          </div>
+          <div class="mockup-code mt">
+            <span class="code-line"
+              ><span class="code-comment"
+                >&lt;!-- HTML semántico con PoiseUI --&gt;</span
+              ></span
+            >
+            <span class="code-line"
+              ><span class="code-tag">&lt;button</span>
+              <span class="code-attr">class</span>=<span class="code-string"
+                >"btn btn-primary"</span
+              ><span class="code-tag">&gt;</span>Click<span class="code-tag"
+                >&lt;/button&gt;</span
+              ></span
+            >
+            <span class="code-line"
+              ><span class="code-tag">&lt;div</span>
+              <span class="code-attr">class</span>=<span class="code-string"
+                >"card"</span
+              ><span class="code-tag">&gt;</span></span
+            >
+            <span class="code-line">
+              <span class="code-tag">&lt;div</span>
+              <span class="code-attr">class</span>=<span class="code-string"
+                >"card-body"</span
+              ><span class="code-tag">&gt;</span></span
+            >
+            <span class="code-line">
+              <span class="code-tag">&lt;h2</span>
+              <span class="code-attr">class</span>=<span class="code-string"
+                >"card-title"</span
+              ><span class="code-tag">&gt;</span>Título<span class="code-tag"
+                >&lt;/h2&gt;</span
+              ></span
+            >
+            <span class="code-line">
+              <span class="code-tag">&lt;/div&gt;</span></span
+            >
+            <span class="code-line"
+              ><span class="code-tag">&lt;/div&gt;</span></span
+            >
+          </div>
+        </section>
+
+        <!-- PATTERNS -->
+        <section id="patterns">
+          <div class="section-header">
+            <span class="tag">Patrones</span>
+            <h2>Patrones de composición</h2>
+          </div>
+
+          <h3>Formulario de login</h3>
+          <div style="max-width: 380px" class="card">
+            <div class="card-body" style="padding: 2rem">
+              <h2
+                style="
+                  font-size: 1.4rem;
+                  font-weight: 700;
+                  margin-bottom: 0.25rem;
+                "
+              >
+                Bienvenido
+              </h2>
+              <p
+                style="font-size: 0.82rem; opacity: 0.55; margin-bottom: 1.5rem"
+              >
+                Inicia sesión para continuar
+              </p>
+              <div style="display: flex; flex-direction: column; gap: 1rem">
+                <div class="form-control">
+                  <label class="label">Email</label>
+                  <input
+                    class="input"
+                    type="email"
+                    placeholder="tu@email.com"
+                  />
+                </div>
+                <div class="form-control">
+                  <label class="label">Contraseña</label>
+                  <input class="input" type="password" placeholder="••••••••" />
+                </div>
+                <button class="btn btn-primary">Iniciar sesión</button>
+                <div class="divider">o</div>
+                <button
+                  class="btn btn-ghost"
+                  style="border: 1px solid var(--base-300)"
+                >
+                  Continuar con Google
+                </button>
+                <p style="font-size: 0.8rem; text-align: center; opacity: 0.6">
+                  ¿No tienes cuenta?
+                  <a
+                    href="#"
+                    style="
+                      color: var(--primary);
+                      text-decoration: none;
+                      font-weight: 500;
+                    "
+                    >Regístrate</a
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <h3 style="margin-top: 2.5rem">Panel de usuario</h3>
+          <div class="card">
+            <div
+              class="card-body"
+              style="
+                display: flex;
+                align-items: center;
+                gap: 1.25rem;
+                flex-wrap: wrap;
+              "
+            >
+              <div class="avatar avatar-online">
+                <div
+                  class="avatar-inner"
+                  style="
+                    background: var(--primary);
+                    color: white;
+                    font-size: 1.1rem;
+                  "
+                >
+                  PS
+                </div>
+              </div>
+              <div style="flex: 1; min-width: 160px">
+                <div style="font-weight: 600; font-size: 1rem">
+                  Pouya Saadeghi
+                </div>
+                <div style="font-size: 0.82rem; opacity: 0.55">
+                  Creator · @saadeghi
+                </div>
+              </div>
+              <div style="display: flex; gap: 0.5rem; flex-wrap: wrap">
+                <span class="badge badge-primary">Admin</span>
+                <span class="badge badge-success">Pro</span>
+                <span class="badge badge-ghost">Open Source</span>
+              </div>
+              <button class="btn btn-ghost btn-sm">Editar perfil</button>
+            </div>
+          </div>
+
+          <h3 style="margin-top: 2.5rem">Card de producto</h3>
+          <div style="max-width: 280px" class="card">
+            <div
+              style="
+                height: 140px;
+                background: linear-gradient(
+                  135deg,
+                  rgba(87, 13, 248, 0.18),
+                  rgba(55, 205, 190, 0.18)
+                );
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 3rem;
+              "
+            >
+              🌼
+            </div>
+            <div class="card-body">
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: flex-start;
+                  margin-bottom: 0.25rem;
+                "
+              >
+                <div class="card-title" style="font-size: 1rem">
+                  poiseUI Pro
+                </div>
+                <span class="badge badge-warning badge-sm">Popular</span>
+              </div>
+              <p style="font-size: 0.8rem; opacity: 0.6">
+                Acceso a todos los templates y componentes premium.
+              </p>
+              <div
+                style="
+                  font-size: 1.5rem;
+                  font-weight: 700;
+                  margin: 0.75rem 0;
+                  color: var(--primary);
+                "
+              >
+                $49
+                <span
+                  style="font-size: 0.875rem; font-weight: 400; opacity: 0.5"
+                  >/año</span
+                >
+              </div>
+              <div class="card-actions">
+                <button class="btn btn-primary btn-wide">Comprar ahora</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      // Sidebar active link on scroll
+      const sections = document.querySelectorAll("section[id]");
+      const links = document.querySelectorAll(".sidebar-link");
+      window.addEventListener("scroll", () => {
+        let current = "";
+        sections.forEach((s) => {
+          if (window.scrollY >= s.offsetTop - 100) current = s.id;
+        });
+        links.forEach((l) => {
+          l.classList.toggle(
+            "active",
+            l.getAttribute("href") === "#" + current,
+          );
+        });
+      });
+
+      // Tabs
+      document.getElementById("demo-tabs").addEventListener("click", (e) => {
+        if (e.target.classList.contains("tab")) {
+          document
+            .querySelectorAll("#demo-tabs .tab")
+            .forEach((t) => t.classList.remove("active"));
+          e.target.classList.add("active");
+        }
+      });
+    </script>
+  </body>
+</html>
