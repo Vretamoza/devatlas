@@ -4,13 +4,13 @@ import { useFilterStore } from '../store/filterStore'
 import type { Resource } from '../types'
 
 export function useResources(overrides?: { category?: string; subcategory?: string }) {
-  const { query, category, subcategory, types, tags, sort } = useFilterStore()
+  const { query, category, subcategory, types, language, tags, sort } = useFilterStore()
 
   const effectiveCategory = overrides?.category ?? category
   const effectiveSubcategory = overrides?.subcategory ?? subcategory
 
   return useQuery<Resource[]>({
-    queryKey: ['resources', query, effectiveCategory, effectiveSubcategory, types, tags, sort],
+    queryKey: ['resources', query, effectiveCategory, effectiveSubcategory, types, language, tags, sort],
     queryFn: async () => {
       let q = supabase
         .from('resources')
@@ -18,7 +18,8 @@ export function useResources(overrides?: { category?: string; subcategory?: stri
 
       if (effectiveCategory) q = q.eq('category_id', effectiveCategory)
       if (effectiveSubcategory) q = q.eq('subcategory_id', effectiveSubcategory)
-      if (types.length < 4) q = q.in('type', types)
+      if (types.length > 0) q = q.in('type', types)
+      if (language) q = q.eq('language', language)
       if (query) q = q.or(`title.ilike.%${query}%,description.ilike.%${query}%`)
 
       if (sort === 'newest') q = q.order('created_at', { ascending: false })

@@ -1,13 +1,7 @@
 import type { Resource } from '../../types'
 import { useFilterStore } from '../../store/filterStore'
 import { useNavigate } from 'react-router-dom'
-
-const TYPE_BADGE: Record<string, string> = {
-  documentation: 'badge-info',
-  tool: 'badge-primary',
-  article: 'badge-secondary',
-  video: 'badge-accent',
-}
+import { useResourceTypes } from '../../hooks/useResourceTypes'
 
 interface ResourceDrawerProps {
   resource: Resource | null
@@ -17,6 +11,9 @@ interface ResourceDrawerProps {
 export function ResourceDrawer({ resource, onClose }: ResourceDrawerProps) {
   const toggleTag = useFilterStore((s) => s.toggleTag)
   const navigate = useNavigate()
+  const { data: resourceTypes = [] } = useResourceTypes()
+  const typeRecord = resource ? resourceTypes.find((rt) => rt.value === resource.type) : null
+  const badgeClass = typeRecord ? `badge-${typeRecord.color}` : 'badge-ghost'
 
   const handleTagClick = (tagName: string) => {
     toggleTag(tagName)
@@ -44,20 +41,31 @@ export function ResourceDrawer({ resource, onClose }: ResourceDrawerProps) {
           <div className="p-6 flex flex-col gap-4">
             {/* Header */}
             <div className="flex items-center justify-between gap-3">
-              <span className={`badge badge-lg font-bold uppercase tracking-wide rounded-lg ${TYPE_BADGE[resource.type] ?? 'badge-ghost'}`}>
-                {resource.type}
+              <span className={`badge badge-lg font-bold uppercase tracking-wide rounded-lg ${badgeClass}`}>
+                {typeRecord?.emoji} {resource.type}
               </span>
               <div className="flex items-center gap-2">
                 <a
                   href={resource.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn btn-primary btn-sm"
                   onClick={(e) => e.stopPropagation()}
+                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary text-primary-content text-sm font-semibold hover:bg-primary/85 active:scale-95 transition-all duration-150 select-none"
                 >
-                  Open ↗
+                  Open resource
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                    <path d="M2 10L10 2M10 2H5M10 2v5"/>
+                  </svg>
                 </a>
-                <button className="btn btn-ghost btn-sm btn-circle" onClick={onClose}>✕</button>
+                <button
+                  onClick={onClose}
+                  className="flex items-center justify-center w-8 h-8 rounded-lg text-base-content/40 hover:text-base-content hover:bg-base-200 transition-all duration-150"
+                  aria-label="Close"
+                >
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                    <path d="M3 3l10 10M13 3L3 13"/>
+                  </svg>
+                </button>
               </div>
             </div>
 
@@ -73,8 +81,10 @@ export function ResourceDrawer({ resource, onClose }: ResourceDrawerProps) {
                   <span>{resource.subcategory.name}</span>
                 </>
               )}
-              <span className="ml-auto">
-                {new Date(resource.created_at).toLocaleDateString()}
+              <span className="ml-auto flex items-center gap-2">
+                <span>{resource.language === 'es' ? '🇪🇸 Español' : '🇺🇸 English'}</span>
+                <span>·</span>
+                <span>{new Date(resource.created_at).toLocaleDateString()}</span>
               </span>
             </div>
 
@@ -91,8 +101,8 @@ export function ResourceDrawer({ resource, onClose }: ResourceDrawerProps) {
                 {resource.tags.map((tag) => (
                   <button
                     key={tag.id}
-                    className="badge badge-outline cursor-pointer transition-colors hover:bg-primary hover:text-primary-content hover:border-primary"
                     onClick={() => handleTagClick(tag.name)}
+                    className="px-3 py-1 rounded-full text-xs font-medium border border-base-300 text-base-content/60 hover:border-primary/50 hover:text-primary hover:bg-primary/8 transition-all duration-150 cursor-pointer"
                   >
                     {tag.name}
                   </button>

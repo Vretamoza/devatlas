@@ -1,11 +1,5 @@
 import type { Resource } from "../../types";
-
-const TYPE_BADGE: Record<string, string> = {
-  documentation: "badge-info",
-  tool: "badge-primary",
-  article: "badge-secondary",
-  video: "badge-accent",
-};
+import { useResourceTypes } from "../../hooks/useResourceTypes";
 
 interface ResourceCardProps {
   resource: Resource;
@@ -13,6 +7,10 @@ interface ResourceCardProps {
 }
 
 export function ResourceCard({ resource, onClick }: ResourceCardProps) {
+  const { data: resourceTypes = [] } = useResourceTypes()
+  const typeRecord = resourceTypes.find((rt) => rt.value === resource.type)
+  const badgeClass = typeRecord ? `badge-${typeRecord.color}` : 'badge-ghost'
+
   return (
     <div
       className="card bg-base-100 border-2 border-base-200 hover:border-primary/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-200 cursor-pointer rounded-2xl min-h-[180px]"
@@ -21,14 +19,17 @@ export function ResourceCard({ resource, onClick }: ResourceCardProps) {
       <div className="card-body gap-3 p-5">
         <div className="flex items-center gap-2 flex-wrap">
           <span
-            className={`badge badge-sm font-bold uppercase tracking-wide rounded-md py-3 px-2 ${TYPE_BADGE[resource.type] ?? "badge-ghost"}`}
+            className={`badge badge-sm font-bold uppercase tracking-wide rounded-md py-3 px-2 ${badgeClass}`}
           >
-            {resource.type}
+            {typeRecord?.emoji} {resource.type}
           </span>
           {resource.category && (
             <span className="text-xs text-base-content/40 font-medium">
               {resource.category.name}
             </span>
+          )}
+          {resource.language === 'es' && (
+            <span className="text-xs text-base-content/40 ml-auto">🇪🇸</span>
           )}
         </div>
         <h3 className="font-bold text-base leading-snug line-clamp-2 tracking-tight">

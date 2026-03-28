@@ -47,8 +47,8 @@
   --color-error-content: oklch(0.18 0.074 21); /* #470000 */
 
   /* Radius */
-  --radius-btn: 0.5rem;
-  --radius-badge: 1.9rem;
+  --radius-btn: 0.625rem;
+  --radius-badge: 99px;
   --radius-box: 1rem; /* --radius-card in design system */
 }
 
@@ -77,12 +77,35 @@
   --color-error: oklch(0.69 0.17 21);
   --color-error-content: oklch(0.18 0.074 21);
 
-  --radius-btn: 0.5rem;
-  --radius-badge: 1.9rem;
+  --radius-btn: 0.625rem;
+  --radius-badge: 99px;
   --radius-box: 1rem;
 }
 
 /* Card lift with tinted shadow on hover */
 .card:hover {
   box-shadow: 0 12px 32px -4px color-mix(in oklch, var(--color-primary) 12%, transparent);
+}
+
+/* Modern focus ring — replaces the square black outline */
+.input:focus-within,
+.select:focus,
+.select:focus-within,
+.textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--color-primary) 18%, transparent);
+}
+
+/* Suppress native browser outline on the inner input element */
+.input input:focus,
+.input textarea:focus {
+  outline: none;
+}
+
+/* Also scope to bare native inputs not wrapped in daisyUI */
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
 }

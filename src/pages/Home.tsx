@@ -4,9 +4,10 @@ import { SearchBar } from '../components/search/SearchBar'
 import { ResourceCard } from '../components/resource/ResourceCard'
 import { useResources } from '../hooks/useResources'
 import { useCategories } from '../hooks/useCategories'
+import { useResourceTypes } from '../hooks/useResourceTypes'
 import { useFilterStore } from '../store/filterStore'
 import { ResourceDrawer } from '../components/resource/ResourceDrawer'
-import type { Resource, ResourceType } from '../types'
+import type { Resource } from '../types'
 import { useState } from 'react'
 
 const CATEGORY_ICONS: Record<string, string> = {
@@ -14,21 +15,15 @@ const CATEGORY_ICONS: Record<string, string> = {
   mobile: '📱', database: '🗄️', security: '🔒', design: '✏️',
 }
 
-const TYPE_FILTERS: { value: ResourceType; label: string; icon: string }[] = [
-  { value: 'documentation', label: 'Documentation', icon: '📄' },
-  { value: 'tool', label: 'Tool', icon: '🔧' },
-  { value: 'article', label: 'Article', icon: '📝' },
-  { value: 'video', label: 'Video', icon: '🎬' },
-]
-
 export function Home() {
   const { data: recent, isLoading } = useResources()
   const { data: categories } = useCategories()
+  const { data: resourceTypes = [] } = useResourceTypes()
   const setCategory = useFilterStore((s) => s.setCategory)
   const navigate = useNavigate()
   const [selected, setSelected] = useState<Resource | null>(null)
 
-  const handleTypeFilter = (type: ResourceType) => {
+  const handleTypeFilter = (type: string) => {
     navigate(`/explore?type=${type}`)
   }
 
@@ -84,13 +79,14 @@ export function Home() {
       <section className="px-4 sm:px-8 max-w-5xl mx-auto mb-16">
         <h2 className="text-sm font-semibold uppercase tracking-widest text-base-content/40 mb-4">Browse by type</h2>
         <div className="flex flex-wrap gap-2">
-          {TYPE_FILTERS.map(({ value, label, icon }) => (
+          {resourceTypes.map(({ value, label, emoji }) => (
             <button
               key={value}
-              className="btn btn-outline btn-sm gap-2"
               onClick={() => handleTypeFilter(value)}
+              className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border border-base-300 bg-base-100 hover:border-primary/40 hover:bg-primary/8 hover:text-primary transition-all duration-200 cursor-pointer"
             >
-              <span>{icon}</span> {label}
+              <span className="text-base leading-none">{emoji}</span>
+              {label}
             </button>
           ))}
         </div>
@@ -100,7 +96,13 @@ export function Home() {
       <section className="px-4 sm:px-8 max-w-5xl mx-auto mb-16">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-sm font-semibold uppercase tracking-widest text-base-content/40">Recently added</h2>
-          <Link to="/explore" className="btn btn-ghost btn-xs">View all →</Link>
+          <Link
+            to="/explore"
+            className="text-sm font-medium text-primary/70 hover:text-primary flex items-center gap-1 transition-colors duration-150 group"
+          >
+            View all
+            <span className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+          </Link>
         </div>
         {isLoading ? (
           <div className="flex gap-4 overflow-x-auto pb-2">

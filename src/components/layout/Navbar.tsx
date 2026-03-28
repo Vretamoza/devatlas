@@ -6,7 +6,10 @@ export function Navbar() {
   return (
     <div className="navbar bg-base-100/85 backdrop-blur border-b border-base-200 sticky top-0 z-30 px-4 gap-2">
       <div className="navbar-start">
-        <Link to="/" className="btn btn-ghost text-base font-semibold px-2">
+        <Link
+          to="/"
+          className="flex items-center gap-0 text-base font-bold tracking-tight transition-opacity duration-200 hover:opacity-70 select-none"
+        >
           Dev<span className="text-primary">Atlas</span>
         </Link>
       </div>
