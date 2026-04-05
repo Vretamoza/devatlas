@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
 import type { Resource } from '../../types'
 import { ResourceCard } from './ResourceCard'
 import { LoadingSkeleton } from '../ui/LoadingSkeleton'
@@ -12,6 +14,37 @@ interface ResourceGridProps {
 
 export function ResourceGrid({ resources, isLoading, onSelect }: ResourceGridProps) {
   const clearFilters = useFilterStore((s) => s.clearFilters)
+  const gridRef = useRef<HTMLDivElement>(null)
+  const prevCountRef = useRef(0)
+
+  useEffect(() => {
+    if (!gridRef.current || !resources?.length) return
+
+    const cards = gridRef.current.querySelectorAll('.resource-card')
+    if (!cards.length) return
+
+    // Only animate newly rendered cards (count changed)
+    const newCount = resources.length
+    if (newCount === prevCountRef.current) return
+    prevCountRef.current = newCount
+
+    gsap.fromTo(
+      cards,
+      { opacity: 0, y: 20, scale: 0.97 },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.45,
+        ease: 'power3.out',
+        stagger: {
+          each: 0.05,
+          from: 'start',
+        },
+        clearProps: 'transform',
+      }
+    )
+  }, [resources?.length])
 
   if (isLoading) return <LoadingSkeleton />
 
@@ -26,7 +59,10 @@ export function ResourceGrid({ resources, isLoading, onSelect }: ResourceGridPro
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    <div
+      ref={gridRef}
+      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+    >
       {resources.map((r) => (
         <ResourceCard key={r.id} resource={r} onClick={onSelect} />
       ))}

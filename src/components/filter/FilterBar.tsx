@@ -4,36 +4,72 @@ import { TypeFilter } from './TypeFilter'
 import { LanguageFilter } from './LanguageFilter'
 import { TagCloud } from './TagCloud'
 
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <p
+      className="text-xs font-bold uppercase tracking-widest mb-2"
+      style={{
+        color: 'oklch(0.38 0.02 265)',
+        fontFamily: 'var(--font-mono)',
+        letterSpacing: '0.1em',
+      }}
+    >
+      {children}
+    </p>
+  )
+}
+
+function Divider() {
+  return <div style={{ height: '1px', background: 'oklch(0.18 0.015 265)', margin: '0.25rem 0' }} />
+}
+
 export function FilterBar() {
   const { query, category, subcategory, types, language, tags, clearFilters } = useFilterStore()
   const hasFilters = !!(query || category || subcategory || types.length || language || tags.length)
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-4 py-2">
       <div>
-        <p className="text-xs font-semibold uppercase tracking-widest text-base-content/40 mb-2">Categories</p>
+        <SectionLabel>Categories</SectionLabel>
         <CategoryTree />
       </div>
-      <div className="divider my-0" />
+
+      <Divider />
+
       <div>
-        <p className="text-xs font-semibold uppercase tracking-widest text-base-content/40 mb-2">Type</p>
+        <SectionLabel>Type</SectionLabel>
         <TypeFilter />
       </div>
-      <div className="divider my-0" />
+
+      <Divider />
+
       <div>
-        <p className="text-xs font-semibold uppercase tracking-widest text-base-content/40 mb-2">Language</p>
+        <SectionLabel>Language</SectionLabel>
         <LanguageFilter />
       </div>
-      <div className="divider my-0" />
+
+      <Divider />
+
       <div>
-        <p className="text-xs font-semibold uppercase tracking-widest text-base-content/40 mb-2">Tags</p>
+        <SectionLabel>Tags</SectionLabel>
         <TagCloud />
       </div>
+
       {hasFilters && (
         <>
-          <div className="divider my-0" />
-          <button className="btn btn-ghost btn-sm" onClick={clearFilters}>
-            Clear all filters
+          <Divider />
+          <button
+            onClick={clearFilters}
+            className="w-full px-3 py-2 rounded-lg text-xs font-semibold transition-all duration-150"
+            style={{
+              color: 'oklch(0.65 0.22 25)',
+              background: 'oklch(0.65 0.22 25 / 0.08)',
+              border: '1px solid oklch(0.65 0.22 25 / 0.2)',
+              fontFamily: 'var(--font-mono)',
+              letterSpacing: '0.05em',
+            }}
+          >
+            ✕ Clear all filters
           </button>
         </>
       )}

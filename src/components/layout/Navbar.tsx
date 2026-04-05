@@ -1,24 +1,59 @@
-import { Link } from 'react-router-dom'
-import { ThemeToggle } from '../ui/ThemeToggle'
+import { Link, useLocation } from 'react-router-dom'
 import { SearchBar } from '../search/SearchBar'
 
 export function Navbar() {
+  const location = useLocation()
+
   return (
-    <div className="navbar bg-base-100/85 backdrop-blur border-b border-base-200 sticky top-0 z-30 px-4 gap-2">
-      <div className="navbar-start">
-        <Link
-          to="/"
-          className="flex items-center gap-0 text-base font-bold tracking-tight transition-opacity duration-200 hover:opacity-70 select-none"
+    <header
+      className="navbar-glass sticky top-0 z-30 flex items-center justify-between px-5 h-[--spacing-nav] gap-4"
+      style={{ minHeight: 'var(--spacing-nav)' }}
+    >
+      {/* Logo */}
+      <Link
+        to="/"
+        className="flex items-center gap-0 shrink-0 select-none group"
+        style={{ fontFamily: 'var(--font-display)' }}
+      >
+        <span
+          className="text-lg font-bold tracking-tight transition-opacity duration-200 group-hover:opacity-80"
+          style={{ color: 'var(--color-base-content)' }}
         >
-          Dev<span className="text-primary">Atlas</span>
-        </Link>
-      </div>
-      <div className="navbar-center hidden md:flex w-full max-w-sm">
+          Dev
+        </span>
+        <span
+          className="text-lg font-bold tracking-tight transition-opacity duration-200 group-hover:opacity-80"
+          style={{
+            color: 'var(--color-primary)',
+            textShadow: '0 0 20px oklch(0.78 0.17 75 / 0.4)',
+          }}
+        >
+          Atlas
+        </span>
+      </Link>
+
+      {/* Search — centered on desktop */}
+      <div className="hidden md:flex flex-1 max-w-sm mx-auto">
         <SearchBar />
       </div>
-      <div className="navbar-end gap-1">
-        <ThemeToggle />
-      </div>
-    </div>
+
+      {/* Nav links */}
+      <nav className="flex items-center gap-1">
+        <Link
+          to="/explore"
+          className="px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-150"
+          style={{
+            color: location.pathname === '/explore'
+              ? 'var(--color-primary)'
+              : 'oklch(0.58 0.02 265)',
+            background: location.pathname === '/explore'
+              ? 'oklch(0.78 0.17 75 / 0.1)'
+              : 'transparent',
+          }}
+        >
+          Explore
+        </Link>
+      </nav>
+    </header>
   )
 }

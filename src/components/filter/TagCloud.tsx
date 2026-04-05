@@ -13,9 +13,7 @@ export function TagCloud() {
         <button
           key={tag.id}
           onClick={() => toggleTag(tag.name)}
-          className={`badge cursor-pointer transition-colors ${
-            activeTags.includes(tag.name) ? 'badge-primary' : 'badge-outline'
-          }`}
+          className={`tag-pill ${activeTags.includes(tag.name) ? 'active' : ''}`}
         >
           {tag.name}
         </button>

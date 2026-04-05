@@ -1,111 +1,350 @@
 @import "tailwindcss";
 
-/* ── TAILWIND THEME ──────────────────────────────────────────────────────────
-   Fonts and custom spacing tokens live here.
-   Reference with Tailwind utilities: font-sans, font-mono, etc.
-   ────────────────────────────────────────────────────────────────────────── */
+/* ── TAILWIND THEME ──────────────────────────────────────────────────────── */
 @theme {
-  --font-sans: "DM Sans", sans-serif;
-  --font-mono: "DM Mono", monospace;
-  --spacing-nav: 64px;
+  --font-sans: "Plus Jakarta Sans", sans-serif;
+  --font-display: "Syne", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --spacing-nav: 60px;
 }
 
-/* ── DAISYUI THEME ───────────────────────────────────────────────────────────
-   Single source of truth for all color and radius tokens.
-   daisyUI's --color-* variables are the canonical names used everywhere —
-   no duplicate --primary / --color-primary declarations.
-   ────────────────────────────────────────────────────────────────────────── */
+/* ── DAISYUI ─────────────────────────────────────────────────────────────── */
 @plugin "daisyui" {
-  themes: devatlas --default, devatlas-dark --prefersdark;
+  themes: devatlas --default;
 }
 
+/* ── AMBER OBSIDIAN THEME ────────────────────────────────────────────────── */
 @plugin "daisyui/theme" {
   name: "devatlas";
   default: true;
-  color-scheme: light;
-
-  /* Colors — design system hex values converted to oklch */
-  --color-primary: oklch(0.45 0.31 264); /* #570df8 */
-  --color-primary-content: oklch(1 0 0); /* #ffffff */
-  --color-secondary: oklch(0.51 0.32 314); /* #f000b8 */
-  --color-secondary-content: oklch(1 0 0); /* #ffffff */
-  --color-accent: oklch(0.77 0.13 181); /* #37cdbe */
-  --color-accent-content: oklch(0.24 0.055 175); /* #163835 */
-  --color-neutral: oklch(0.31 0.02 264); /* #3d4451 */
-  --color-neutral-content: oklch(1 0 0); /* #ffffff */
-  --color-base-100: oklch(1 0 0); /* #ffffff */
-  --color-base-200: oklch(0.96 0 0); /* #f2f2f2 */
-  --color-base-300: oklch(0.91 0 0); /* #e5e6e6 */
-  --color-base-content: oklch(0.22 0.026 264); /* #1f2937 */
-  --color-info: oklch(0.74 0.16 215); /* #3abff8 */
-  --color-info-content: oklch(0.18 0.055 220); /* #002b3d */
-  --color-success: oklch(0.8 0.165 161); /* #36d399 */
-  --color-success-content: oklch(0.21 0.07 160); /* #003320 */
-  --color-warning: oklch(0.83 0.16 87); /* #fbbd23 */
-  --color-warning-content: oklch(0.22 0.073 68); /* #382800 */
-  --color-error: oklch(0.69 0.17 21); /* #f87272 */
-  --color-error-content: oklch(0.18 0.074 21); /* #470000 */
-
-  /* Radius */
-  --radius-btn: 0.625rem;
-  --radius-badge: 99px;
-  --radius-box: 1rem; /* --radius-card in design system */
-}
-
-@plugin "daisyui/theme" {
-  name: "devatlas-dark";
   color-scheme: dark;
 
-  --color-primary: oklch(0.55 0.31 264);
-  --color-primary-content: oklch(1 0 0);
-  --color-secondary: oklch(0.6 0.28 314);
-  --color-secondary-content: oklch(1 0 0);
-  --color-accent: oklch(0.77 0.13 181);
-  --color-accent-content: oklch(0.24 0.055 175);
-  --color-neutral: oklch(0.25 0.02 264);
-  --color-neutral-content: oklch(0.85 0 0);
-  --color-base-100: oklch(0.18 0.015 264);
-  --color-base-200: oklch(0.22 0.015 264);
-  --color-base-300: oklch(0.27 0.015 264);
-  --color-base-content: oklch(0.9 0.01 264);
-  --color-info: oklch(0.74 0.16 215);
-  --color-info-content: oklch(0.18 0.055 220);
-  --color-success: oklch(0.8 0.165 161);
-  --color-success-content: oklch(0.21 0.07 160);
-  --color-warning: oklch(0.83 0.16 87);
-  --color-warning-content: oklch(0.22 0.073 68);
-  --color-error: oklch(0.69 0.17 21);
-  --color-error-content: oklch(0.18 0.074 21);
+  /* Amber primary — the key differentiator */
+  --color-primary:         oklch(0.78 0.17 75);   /* #F59E0B amber */
+  --color-primary-content: oklch(0.13 0.04 75);   /* near-black on amber */
 
-  --radius-btn: 0.625rem;
+  /* Emerald secondary */
+  --color-secondary:         oklch(0.72 0.17 162); /* #10B981 emerald */
+  --color-secondary-content: oklch(0.13 0.05 162);
+
+  /* Indigo accent */
+  --color-accent:         oklch(0.66 0.18 280);   /* #818CF8 indigo */
+  --color-accent-content: oklch(1 0 0);
+
+  /* Neutrals */
+  --color-neutral:         oklch(0.22 0.015 260);
+  --color-neutral-content: oklch(0.88 0.01 260);
+
+  /* Base surfaces — deep navy */
+  --color-base-100: oklch(0.09 0.018 265);  /* #070C18 deepest bg */
+  --color-base-200: oklch(0.13 0.016 265);  /* #0D1525 card surface */
+  --color-base-300: oklch(0.18 0.014 265);  /* #131A2E elevated */
+  --color-base-content: oklch(0.90 0.012 265); /* #E2E8F5 text */
+
+  /* Semantic */
+  --color-info:    oklch(0.68 0.15 215);
+  --color-info-content: oklch(0.13 0.04 215);
+  --color-success: oklch(0.72 0.17 162);
+  --color-success-content: oklch(0.13 0.05 162);
+  --color-warning: oklch(0.78 0.17 75);
+  --color-warning-content: oklch(0.13 0.04 75);
+  --color-error:   oklch(0.65 0.22 25);
+  --color-error-content: oklch(1 0 0);
+
+  /* Radius */
+  --radius-btn:   0.5rem;
   --radius-badge: 99px;
-  --radius-box: 1rem;
+  --radius-box:   0.875rem;
 }
 
-/* Card lift with tinted shadow on hover */
-.card:hover {
-  box-shadow: 0 12px 32px -4px color-mix(in oklch, var(--color-primary) 12%, transparent);
+/* ── GLOBAL BASE ─────────────────────────────────────────────────────────── */
+html, body, #root {
+  min-height: 100vh;
+  background-color: var(--color-base-100);
 }
 
-/* Modern focus ring — replaces the square black outline */
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Dot grid background texture */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(
+    circle,
+    oklch(0.35 0.02 265 / 0.4) 1px,
+    transparent 1px
+  );
+  background-size: 28px 28px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+/* Subtle ambient glow from top */
+body::after {
+  content: '';
+  position: fixed;
+  top: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 400px;
+  background: radial-gradient(
+    ellipse at center,
+    oklch(0.78 0.17 75 / 0.06) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── TYPOGRAPHY ──────────────────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}
+
+/* ── SCROLLBAR ───────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: oklch(0.28 0.02 265);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.35 0.02 265);
+}
+
+/* ── SELECTION ───────────────────────────────────────────────────────────── */
+::selection {
+  background: oklch(0.78 0.17 75 / 0.25);
+  color: var(--color-base-content);
+}
+
+/* ── FOCUS ───────────────────────────────────────────────────────────────── */
 .input:focus-within,
 .select:focus,
 .select:focus-within,
-.textarea:focus {
-  outline: none;
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px color-mix(in oklch, var(--color-primary) 18%, transparent);
-}
-
-/* Suppress native browser outline on the inner input element */
-.input input:focus,
-.input textarea:focus {
-  outline: none;
-}
-
-/* Also scope to bare native inputs not wrapped in daisyUI */
+.textarea:focus,
 input:focus,
 select:focus,
 textarea:focus {
   outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px oklch(0.78 0.17 75 / 0.18);
+}
+
+/* ── CARD GLOW HOVER ─────────────────────────────────────────────────────── */
+.resource-card {
+  background: linear-gradient(
+    135deg,
+    oklch(0.13 0.016 265) 0%,
+    oklch(0.11 0.018 265) 100%
+  );
+  border: 1px solid oklch(0.25 0.02 265 / 0.6);
+  border-radius: var(--radius-box);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+              border-color 0.2s ease,
+              box-shadow 0.25s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.resource-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    oklch(0.78 0.17 75 / 0) 0%,
+    oklch(0.78 0.17 75 / 0.04) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.resource-card:hover {
+  transform: translateY(-4px) scale(1.015);
+  border-color: oklch(0.78 0.17 75 / 0.45);
+  box-shadow:
+    0 8px 32px -4px oklch(0.78 0.17 75 / 0.18),
+    0 0 0 1px oklch(0.78 0.17 75 / 0.12),
+    0 1px 0 0 oklch(0.78 0.17 75 / 0.3) inset;
+}
+
+.resource-card:hover::before {
+  opacity: 1;
+}
+
+/* ── TYPE BADGE ──────────────────────────────────────────────────────────── */
+.type-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 99px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+}
+
+/* ── SIDEBAR ─────────────────────────────────────────────────────────────── */
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  color: oklch(0.62 0.02 265);
+  transition: color 0.15s ease, background 0.15s ease;
+  cursor: pointer;
+  position: relative;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+
+.sidebar-item:hover {
+  color: var(--color-base-content);
+  background: oklch(0.18 0.015 265 / 0.7);
+}
+
+.sidebar-item.active {
+  color: var(--color-primary);
+  background: oklch(0.78 0.17 75 / 0.08);
+  font-weight: 600;
+}
+
+.sidebar-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60%;
+  background: var(--color-primary);
+  border-radius: 99px;
+}
+
+/* ── NAVBAR GLASS ────────────────────────────────────────────────────────── */
+.navbar-glass {
+  background: oklch(0.09 0.018 265 / 0.85);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  border-bottom: 1px solid oklch(0.22 0.02 265 / 0.6);
+}
+
+/* ── SEARCH INPUT ────────────────────────────────────────────────────────── */
+.search-input {
+  background: oklch(0.13 0.016 265 / 0.9);
+  border: 1px solid oklch(0.25 0.02 265 / 0.6);
+  border-radius: 0.5rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-input:focus-within {
+  border-color: oklch(0.78 0.17 75 / 0.6);
+  box-shadow: 0 0 0 3px oklch(0.78 0.17 75 / 0.12);
+}
+
+/* ── DRAWER PANEL ────────────────────────────────────────────────────────── */
+.drawer-panel {
+  background: oklch(0.11 0.018 265);
+  border-left: 1px solid oklch(0.22 0.02 265 / 0.7);
+}
+
+/* ── STATS CARD ──────────────────────────────────────────────────────────── */
+.stat-card {
+  background: linear-gradient(135deg, oklch(0.13 0.016 265), oklch(0.11 0.018 265));
+  border: 1px solid oklch(0.22 0.02 265 / 0.6);
+  border-radius: var(--radius-box);
+  padding: 1.25rem 1.5rem;
+}
+
+/* ── ADMIN TABLE ─────────────────────────────────────────────────────────── */
+.admin-table tr {
+  transition: background 0.15s ease;
+}
+.admin-table tbody tr:hover {
+  background: oklch(0.15 0.015 265 / 0.7) !important;
+}
+
+/* ── TAG PILL ────────────────────────────────────────────────────────────── */
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.6rem;
+  border-radius: 99px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  border: 1px solid oklch(0.28 0.02 265);
+  color: oklch(0.60 0.02 265);
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+  cursor: pointer;
+  background: transparent;
+}
+
+.tag-pill:hover,
+.tag-pill.active {
+  border-color: oklch(0.78 0.17 75 / 0.5);
+  color: var(--color-primary);
+  background: oklch(0.78 0.17 75 / 0.08);
+}
+
+/* ── LOADING SKELETON ────────────────────────────────────────────────────── */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    oklch(0.16 0.015 265) 25%,
+    oklch(0.20 0.015 265) 50%,
+    oklch(0.16 0.015 265) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── FADE-IN ANIMATION ───────────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ── GLOW PULSE ──────────────────────────────────────────────────────────── */
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 8px oklch(0.78 0.17 75 / 0.3); }
+  50%       { box-shadow: 0 0 16px oklch(0.78 0.17 75 / 0.6); }
+}
+
+.glow-pulse {
+  animation: glowPulse 2s ease-in-out infinite;
 }
