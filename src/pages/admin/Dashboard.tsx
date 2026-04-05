@@ -123,11 +123,7 @@ function ResourcesTab() {
       {/* Table toolbar */}
       <div className="flex items-center gap-3 mb-4">
         <div
-          className="flex items-center gap-2 px-3 py-2 rounded-lg flex-1 max-w-xs"
-          style={{
-            background: 'oklch(0.13 0.016 265)',
-            border: '1px solid oklch(0.22 0.02 265)',
-          }}
+          className="da-input flex-1 max-w-xs"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" style={{ color: 'oklch(0.40 0.02 265)', flexShrink: 0 }}>
             <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
@@ -145,7 +141,7 @@ function ResourcesTab() {
         </div>
         <button
           onClick={() => setEditing('new')}
-          className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold ml-auto transition-all duration-150 hover:scale-105 active:scale-95"
+          className="da-btn flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold ml-auto"
           style={{
             background: 'var(--color-primary)',
             color: 'var(--color-primary-content)',
@@ -377,8 +373,8 @@ function TypesTab() {
   }
 
   const inputStyle: React.CSSProperties = {
-    background: 'oklch(0.13 0.016 265)',
-    border: '1px solid oklch(0.22 0.02 265)',
+    background: 'oklch(0.16 0.016 265)',           /* visibly lighter than base-100 */
+    border: '1px solid oklch(0.28 0.022 265)',     /* solid border — visible by default */
     borderRadius: '0.5rem',
     color: 'var(--color-base-content)',
     padding: '0.5rem 0.75rem',
@@ -386,7 +382,7 @@ function TypesTab() {
     fontSize: '0.875rem',
     fontFamily: 'var(--font-sans)',
     outline: 'none',
-    transition: 'border-color 0.15s ease, box-shadow 0.15s ease',
+    transition: `border-color 150ms var(--ease-ui), box-shadow 150ms var(--ease-ui)`,
   }
 
   return (
@@ -397,7 +393,7 @@ function TypesTab() {
         </p>
         <button
           onClick={() => setShowForm(true)}
-          className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold shrink-0 ml-4 transition-all duration-150 hover:scale-105 active:scale-95"
+          className="da-btn flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold shrink-0 ml-4"
           style={{
             background: 'var(--color-primary)',
             color: 'var(--color-primary-content)',

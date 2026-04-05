@@ -19,29 +19,18 @@
   default: true;
   color-scheme: dark;
 
-  /* Amber primary — the key differentiator */
-  --color-primary:         oklch(0.78 0.17 75);   /* #F59E0B amber */
-  --color-primary-content: oklch(0.13 0.04 75);   /* near-black on amber */
-
-  /* Emerald secondary */
-  --color-secondary:         oklch(0.72 0.17 162); /* #10B981 emerald */
+  --color-primary:         oklch(0.78 0.17 75);
+  --color-primary-content: oklch(0.13 0.04 75);
+  --color-secondary:         oklch(0.72 0.17 162);
   --color-secondary-content: oklch(0.13 0.05 162);
-
-  /* Indigo accent */
-  --color-accent:         oklch(0.66 0.18 280);   /* #818CF8 indigo */
+  --color-accent:         oklch(0.66 0.18 280);
   --color-accent-content: oklch(1 0 0);
-
-  /* Neutrals */
   --color-neutral:         oklch(0.22 0.015 260);
   --color-neutral-content: oklch(0.88 0.01 260);
-
-  /* Base surfaces — deep navy */
-  --color-base-100: oklch(0.09 0.018 265);  /* #070C18 deepest bg */
-  --color-base-200: oklch(0.13 0.016 265);  /* #0D1525 card surface */
-  --color-base-300: oklch(0.18 0.014 265);  /* #131A2E elevated */
-  --color-base-content: oklch(0.90 0.012 265); /* #E2E8F5 text */
-
-  /* Semantic */
+  --color-base-100: oklch(0.09 0.018 265);
+  --color-base-200: oklch(0.13 0.016 265);
+  --color-base-300: oklch(0.18 0.014 265);
+  --color-base-content: oklch(0.90 0.012 265);
   --color-info:    oklch(0.68 0.15 215);
   --color-info-content: oklch(0.13 0.04 215);
   --color-success: oklch(0.72 0.17 162);
@@ -50,11 +39,18 @@
   --color-warning-content: oklch(0.13 0.04 75);
   --color-error:   oklch(0.65 0.22 25);
   --color-error-content: oklch(1 0 0);
-
-  /* Radius */
   --radius-btn:   0.5rem;
   --radius-badge: 99px;
   --radius-box:   0.875rem;
+}
+
+/* ── EASING TOKENS (Emil Kowalski) ───────────────────────────────────────── */
+:root {
+  --ease-out:    cubic-bezier(0.23, 1, 0.32, 1);      /* strong ease-out for entering elements */
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);     /* strong ease-in-out for on-screen motion */
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);      /* iOS-like drawer enter */
+  --ease-drawer-exit: cubic-bezier(0.32, 0, 0.67, 0); /* drawer exit — starts fast, ease-in */
+  --ease-ui:     cubic-bezier(0.16, 1, 0.3, 1);       /* general UI interactions */
 }
 
 /* ── GLOBAL BASE ─────────────────────────────────────────────────────────── */
@@ -69,14 +65,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Dot grid background texture */
+/* Dot grid background */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
   background-image: radial-gradient(
     circle,
-    oklch(0.35 0.02 265 / 0.4) 1px,
+    oklch(0.32 0.02 265 / 0.35) 1px,
     transparent 1px
   );
   background-size: 28px 28px;
@@ -89,7 +85,7 @@ body::before {
   z-index: 1;
 }
 
-/* Subtle ambient glow from top */
+/* Ambient glow from top */
 body::after {
   content: '';
   position: fixed;
@@ -100,7 +96,7 @@ body::after {
   height: 400px;
   background: radial-gradient(
     ellipse at center,
-    oklch(0.78 0.17 75 / 0.06) 0%,
+    oklch(0.78 0.17 75 / 0.055) 0%,
     transparent 70%
   );
   pointer-events: none;
@@ -113,77 +109,168 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ── SCROLLBAR ───────────────────────────────────────────────────────────── */
-::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background: oklch(0.28 0.02 265);
+  background: oklch(0.25 0.02 265);
   border-radius: 99px;
 }
-::-webkit-scrollbar-thumb:hover {
-  background: oklch(0.35 0.02 265);
-}
+::-webkit-scrollbar-thumb:hover { background: oklch(0.32 0.02 265); }
 
 /* ── SELECTION ───────────────────────────────────────────────────────────── */
 ::selection {
-  background: oklch(0.78 0.17 75 / 0.25);
+  background: oklch(0.78 0.17 75 / 0.22);
   color: var(--color-base-content);
 }
 
-/* ── FOCUS ───────────────────────────────────────────────────────────────── */
-.input:focus-within,
-.select:focus,
-.select:focus-within,
-.textarea:focus,
-input:focus,
-select:focus,
-textarea:focus {
+/* ── INPUT SYSTEM — visible by default ──────────────────────────────────── */
+/*
+   The core rule: inputs must be perceivable BEFORE the user clicks them.
+   Background must contrast with base-100 (#070C18).
+   Border must be solid, not opacity-reduced.
+*/
+.da-input {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-family: var(--font-sans);
+  color: var(--color-base-content);
+  background: oklch(0.16 0.016 265);        /* visibly lighter than base-100 */
+  border: 1px solid oklch(0.28 0.022 265);  /* solid — no opacity reduction */
+  transition:
+    border-color 150ms var(--ease-ui),
+    box-shadow 150ms var(--ease-ui);
   outline: none;
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px oklch(0.78 0.17 75 / 0.18);
 }
 
-/* ── CARD GLOW HOVER ─────────────────────────────────────────────────────── */
+.da-input:focus-within,
+.da-input:focus {
+  border-color: oklch(0.78 0.17 75 / 0.7);
+  box-shadow: 0 0 0 3px oklch(0.78 0.17 75 / 0.14);
+}
+
+.da-input input,
+.da-input textarea {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--color-base-content);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  width: 100%;
+}
+
+.da-input input::placeholder,
+.da-input textarea::placeholder {
+  color: oklch(0.40 0.018 265);
+}
+
+/* Bare inputs (in forms without wrapper) */
+input.da-bare,
+select.da-bare,
+textarea.da-bare {
+  background: oklch(0.16 0.016 265);
+  border: 1px solid oklch(0.28 0.022 265);
+  border-radius: 0.5rem;
+  color: var(--color-base-content);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  font-family: var(--font-sans);
+  width: 100%;
+  outline: none;
+  transition:
+    border-color 150ms var(--ease-ui),
+    box-shadow 150ms var(--ease-ui);
+}
+
+input.da-bare:focus,
+select.da-bare:focus,
+textarea.da-bare:focus {
+  border-color: oklch(0.78 0.17 75 / 0.7);
+  box-shadow: 0 0 0 3px oklch(0.78 0.17 75 / 0.14);
+}
+
+input.da-bare::placeholder,
+textarea.da-bare::placeholder {
+  color: oklch(0.40 0.018 265);
+}
+
+/* Override daisyUI input to match */
+.input,
+.input-bordered {
+  background: oklch(0.16 0.016 265) !important;
+  border: 1px solid oklch(0.28 0.022 265) !important;
+}
+
+.input:focus-within,
+.input:focus,
+.input-bordered:focus-within {
+  border-color: oklch(0.78 0.17 75 / 0.7) !important;
+  box-shadow: 0 0 0 3px oklch(0.78 0.17 75 / 0.14) !important;
+  outline: none !important;
+}
+
+/* ── RESOURCE CARD ───────────────────────────────────────────────────────── */
+/*
+   Emil: hover should be fast (180ms), strong ease-out, no bounce.
+   Guard with @media (hover: hover) — touch devices get stuck hover otherwise.
+*/
 .resource-card {
   background: linear-gradient(
-    135deg,
+    145deg,
     oklch(0.13 0.016 265) 0%,
-    oklch(0.11 0.018 265) 100%
+    oklch(0.115 0.018 265) 100%
   );
-  border: 1px solid oklch(0.25 0.02 265 / 0.6);
+  border: 1px solid oklch(0.22 0.018 265);
   border-radius: var(--radius-box);
-  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
-              border-color 0.2s ease,
-              box-shadow 0.25s ease;
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  /* Specify exact properties — never `all` */
+  transition:
+    transform 180ms var(--ease-out),
+    border-color 180ms var(--ease-ui),
+    box-shadow 180ms var(--ease-ui);
 }
 
+/* Inner glow overlay — opacity-only transition (GPU only) */
 .resource-card::before {
   content: '';
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    135deg,
+    145deg,
     oklch(0.78 0.17 75 / 0) 0%,
-    oklch(0.78 0.17 75 / 0.04) 100%
+    oklch(0.78 0.17 75 / 0.035) 100%
   );
   opacity: 0;
-  transition: opacity 0.25s ease;
+  transition: opacity 180ms var(--ease-ui);
   pointer-events: none;
+  border-radius: inherit;
 }
 
-.resource-card:hover {
-  transform: translateY(-4px) scale(1.015);
-  border-color: oklch(0.78 0.17 75 / 0.45);
-  box-shadow:
-    0 8px 32px -4px oklch(0.78 0.17 75 / 0.18),
-    0 0 0 1px oklch(0.78 0.17 75 / 0.12),
-    0 1px 0 0 oklch(0.78 0.17 75 / 0.3) inset;
+/* Only apply transform hover on pointer devices */
+@media (hover: hover) and (pointer: fine) {
+  .resource-card:hover {
+    transform: translateY(-3px);
+    border-color: oklch(0.78 0.17 75 / 0.40);
+    box-shadow:
+      0 8px 28px -6px oklch(0.78 0.17 75 / 0.16),
+      0 0 0 1px oklch(0.78 0.17 75 / 0.10) inset;
+  }
+  .resource-card:hover::before {
+    opacity: 1;
+  }
 }
 
-.resource-card:hover::before {
-  opacity: 1;
+/* Active state — Emil: every pressable must scale on press */
+.resource-card:active {
+  transform: scale(0.98) translateY(0);
+  transition-duration: 100ms;
 }
 
 /* ── TYPE BADGE ──────────────────────────────────────────────────────────── */
@@ -193,7 +280,7 @@ textarea:focus {
   gap: 0.3rem;
   padding: 0.2rem 0.6rem;
   border-radius: 99px;
-  font-size: 0.65rem;
+  font-size: 0.64rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -208,80 +295,83 @@ textarea:focus {
   padding: 0.4rem 0.6rem;
   border-radius: 0.5rem;
   font-size: 0.875rem;
-  color: oklch(0.62 0.02 265);
-  transition: color 0.15s ease, background 0.15s ease;
+  color: oklch(0.55 0.02 265);
   cursor: pointer;
   position: relative;
   border: none;
   background: none;
   width: 100%;
   text-align: left;
+  /* Emil: specify exact properties */
+  transition:
+    color 150ms var(--ease-ui),
+    background-color 150ms var(--ease-ui);
 }
 
-.sidebar-item:hover {
-  color: var(--color-base-content);
-  background: oklch(0.18 0.015 265 / 0.7);
+@media (hover: hover) and (pointer: fine) {
+  .sidebar-item:hover {
+    color: var(--color-base-content);
+    background-color: oklch(0.17 0.015 265);
+  }
+}
+
+.sidebar-item:active {
+  transform: scale(0.98);
+  transition-duration: 100ms;
 }
 
 .sidebar-item.active {
   color: var(--color-primary);
-  background: oklch(0.78 0.17 75 / 0.08);
+  background-color: oklch(0.78 0.17 75 / 0.08);
   font-weight: 600;
 }
 
+/* Active indicator line — animates in with scaleY */
 .sidebar-item.active::before {
   content: '';
   position: absolute;
   left: 0;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-50%) scaleY(1);
+  transform-origin: center;
   width: 3px;
-  height: 60%;
+  height: 55%;
   background: var(--color-primary);
   border-radius: 99px;
+  box-shadow: 0 0 6px oklch(0.78 0.17 75 / 0.5);
 }
 
-/* ── NAVBAR GLASS ────────────────────────────────────────────────────────── */
+/* ── NAVBAR ──────────────────────────────────────────────────────────────── */
 .navbar-glass {
-  background: oklch(0.09 0.018 265 / 0.85);
-  backdrop-filter: blur(16px) saturate(1.4);
-  -webkit-backdrop-filter: blur(16px) saturate(1.4);
-  border-bottom: 1px solid oklch(0.22 0.02 265 / 0.6);
-}
-
-/* ── SEARCH INPUT ────────────────────────────────────────────────────────── */
-.search-input {
-  background: oklch(0.13 0.016 265 / 0.9);
-  border: 1px solid oklch(0.25 0.02 265 / 0.6);
-  border-radius: 0.5rem;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.search-input:focus-within {
-  border-color: oklch(0.78 0.17 75 / 0.6);
-  box-shadow: 0 0 0 3px oklch(0.78 0.17 75 / 0.12);
+  background: oklch(0.09 0.018 265 / 0.88);
+  backdrop-filter: blur(16px) saturate(1.3);
+  -webkit-backdrop-filter: blur(16px) saturate(1.3);
+  border-bottom: 1px solid oklch(0.20 0.018 265 / 0.8);
 }
 
 /* ── DRAWER PANEL ────────────────────────────────────────────────────────── */
 .drawer-panel {
-  background: oklch(0.11 0.018 265);
-  border-left: 1px solid oklch(0.22 0.02 265 / 0.7);
+  background: oklch(0.105 0.018 265);
+  border-left: 1px solid oklch(0.20 0.018 265);
 }
 
-/* ── STATS CARD ──────────────────────────────────────────────────────────── */
+/* ── STAT CARD ───────────────────────────────────────────────────────────── */
 .stat-card {
-  background: linear-gradient(135deg, oklch(0.13 0.016 265), oklch(0.11 0.018 265));
-  border: 1px solid oklch(0.22 0.02 265 / 0.6);
+  background: linear-gradient(145deg, oklch(0.13 0.016 265), oklch(0.115 0.018 265));
+  border: 1px solid oklch(0.20 0.018 265);
   border-radius: var(--radius-box);
   padding: 1.25rem 1.5rem;
 }
 
 /* ── ADMIN TABLE ─────────────────────────────────────────────────────────── */
-.admin-table tr {
-  transition: background 0.15s ease;
+.admin-table tbody tr {
+  transition: background-color 120ms var(--ease-ui);
 }
-.admin-table tbody tr:hover {
-  background: oklch(0.15 0.015 265 / 0.7) !important;
+
+@media (hover: hover) and (pointer: fine) {
+  .admin-table tbody tr:hover {
+    background-color: oklch(0.15 0.015 265) !important;
+  }
 }
 
 /* ── TAG PILL ────────────────────────────────────────────────────────────── */
@@ -292,42 +382,105 @@ textarea:focus {
   border-radius: 99px;
   font-size: 0.7rem;
   font-weight: 500;
-  border: 1px solid oklch(0.28 0.02 265);
-  color: oklch(0.60 0.02 265);
-  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
-  cursor: pointer;
+  border: 1px solid oklch(0.25 0.018 265);
+  color: oklch(0.52 0.018 265);
   background: transparent;
+  cursor: pointer;
+  transition:
+    border-color 140ms var(--ease-ui),
+    color 140ms var(--ease-ui),
+    background-color 140ms var(--ease-ui);
 }
 
-.tag-pill:hover,
+@media (hover: hover) and (pointer: fine) {
+  .tag-pill:hover,
+  .tag-pill.active {
+    border-color: oklch(0.78 0.17 75 / 0.45);
+    color: var(--color-primary);
+    background-color: oklch(0.78 0.17 75 / 0.07);
+  }
+}
+
 .tag-pill.active {
-  border-color: oklch(0.78 0.17 75 / 0.5);
+  border-color: oklch(0.78 0.17 75 / 0.45);
   color: var(--color-primary);
-  background: oklch(0.78 0.17 75 / 0.08);
+  background-color: oklch(0.78 0.17 75 / 0.07);
 }
 
-/* ── LOADING SKELETON ────────────────────────────────────────────────────── */
+/* ── SKELETON ────────────────────────────────────────────────────────────── */
 .skeleton {
   background: linear-gradient(
     90deg,
-    oklch(0.16 0.015 265) 25%,
-    oklch(0.20 0.015 265) 50%,
-    oklch(0.16 0.015 265) 75%
+    oklch(0.16 0.014 265) 25%,
+    oklch(0.20 0.014 265) 50%,
+    oklch(0.16 0.014 265) 75%
   );
   background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
+  animation: shimmer 1.4s linear infinite;
+  border-radius: 0.375rem;
 }
 
 @keyframes shimmer {
-  0% { background-position: 200% 0; }
+  0%   { background-position: 200% 0; }
   100% { background-position: -200% 0; }
 }
 
-/* ── FADE-IN ANIMATION ───────────────────────────────────────────────────── */
+/* ── BUTTON PRESS ────────────────────────────────────────────────────────── */
+/* Emil: every pressable element needs scale feedback */
+.da-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition:
+    transform 160ms var(--ease-out),
+    opacity 160ms var(--ease-ui);
+  user-select: none;
+}
+
+.da-btn:active {
+  transform: scale(0.97);
+  transition-duration: 80ms;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .da-btn:hover {
+    opacity: 0.88;
+  }
+}
+
+/* ── MODAL ANIMATION ─────────────────────────────────────────────────────── */
+/* Emil: never from scale(0). Start at 0.95 + opacity */
+.modal-box {
+  animation: modalIn 220ms var(--ease-out) both;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ── AMBIENT GLOW PULSE ──────────────────────────────────────────────────── */
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 6px oklch(0.72 0.17 162 / 0.4); }
+  50%       { box-shadow: 0 0 14px oklch(0.72 0.17 162 / 0.7); }
+}
+
+/* ── FADE UP (hero/section entry) ────────────────────────────────────────── */
 @keyframes fadeUp {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(14px);
   }
   to {
     opacity: 1;
@@ -336,15 +489,43 @@ textarea:focus {
 }
 
 .fade-up {
-  animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: fadeUp 0.38s var(--ease-out) both;
 }
 
-/* ── GLOW PULSE ──────────────────────────────────────────────────────────── */
-@keyframes glowPulse {
-  0%, 100% { box-shadow: 0 0 8px oklch(0.78 0.17 75 / 0.3); }
-  50%       { box-shadow: 0 0 16px oklch(0.78 0.17 75 / 0.6); }
+/* ── CATEGORY CARD ───────────────────────────────────────────────────────── */
+/* Emil: CSS hover = hardware-accelerated + interruptible. No JS needed. */
+@media (hover: hover) and (pointer: fine) {
+  .category-card:hover {
+    transform: translateY(-3px);
+    border-color: oklch(0.78 0.17 75 / 0.38) !important;
+    box-shadow: 0 8px 24px -6px oklch(0.78 0.17 75 / 0.13);
+  }
 }
 
-.glow-pulse {
-  animation: glowPulse 2s ease-in-out infinite;
+.category-card:active {
+  transform: scale(0.98) !important;
+  transition-duration: 80ms !important;
+}
+
+/* ── PREFERS REDUCED MOTION ──────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .resource-card,
+  .sidebar-item,
+  .da-btn,
+  .tag-pill {
+    transition: none !important;
+  }
+  .resource-card:hover {
+    transform: none !important;
+  }
+  .resource-card:active {
+    transform: none !important;
+  }
+  .modal-box {
+    animation: none;
+  }
+  .skeleton {
+    animation: none;
+    background: oklch(0.16 0.014 265);
+  }
 }

@@ -35,23 +35,23 @@ export function ResourceDrawer({ resource, onClose }: ResourceDrawerProps) {
     if (!panel || !backdrop) return
 
     if (resource) {
-      // Animate in
-      gsap.set(panel, { x: '100%' })
+      // Animate IN — Emil: drawer enter uses iOS curve, stays under 300ms
+      gsap.set(panel, { transform: 'translateX(100%)' })
       gsap.set(backdrop, { opacity: 0 })
-      gsap.to(backdrop, { opacity: 1, duration: 0.25, ease: 'power2.out' })
+      gsap.to(backdrop, { opacity: 1, duration: 0.22, ease: 'power2.out' })
       gsap.to(panel, {
-        x: '0%',
-        duration: 0.35,
-        ease: 'power3.out',
+        transform: 'translateX(0%)',
+        duration: 0.26,  // 260ms — fast but perceptible
+        ease: 'power3.out', // cubic-bezier(0.32, 0.72, 0, 1) equivalent
       })
       prevResourceRef.current = resource
     } else if (prevResourceRef.current) {
-      // Animate out
-      gsap.to(backdrop, { opacity: 0, duration: 0.2, ease: 'power2.in' })
+      // Animate OUT — Emil: exit must be FASTER than enter (system responding)
+      gsap.to(backdrop, { opacity: 0, duration: 0.16, ease: 'power2.in' })
       gsap.to(panel, {
-        x: '100%',
-        duration: 0.28,
-        ease: 'power3.in',
+        transform: 'translateX(100%)',
+        duration: 0.18,  // 180ms — noticeably snappier than 260ms open
+        ease: 'power2.in', // ease-in on exit: starts fast, slows as it leaves
       })
       prevResourceRef.current = null
     }
@@ -106,7 +106,7 @@ export function ResourceDrawer({ resource, onClose }: ResourceDrawerProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
-                  className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-150 active:scale-95"
+                  className="da-btn flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold"
                   style={{
                     background: 'var(--color-primary)',
                     color: 'var(--color-primary-content)',

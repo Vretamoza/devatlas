@@ -175,19 +175,13 @@ export function Home() {
                 data-cat
                 to={`/explore?category=${cat.id}`}
                 onClick={() => setCategory(cat.id)}
-                className="group flex flex-col gap-3 p-5 rounded-xl transition-all duration-250 hover:-translate-y-1"
+                className="category-card group flex flex-col gap-3 p-5 rounded-xl"
                 style={{
                   background: 'oklch(0.13 0.016 265)',
-                  border: '1px solid oklch(0.22 0.02 265 / 0.6)',
+                  border: '1px solid oklch(0.22 0.018 265)',
                   opacity: 0,
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = 'oklch(0.78 0.17 75 / 0.4)'
-                  e.currentTarget.style.boxShadow = '0 8px 24px -4px oklch(0.78 0.17 75 / 0.12)'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'oklch(0.22 0.02 265 / 0.6)'
-                  e.currentTarget.style.boxShadow = 'none'
+                  /* Emil: CSS transition for hover — hardware-accelerated, interruptible */
+                  transition: 'transform 180ms var(--ease-out), border-color 180ms var(--ease-ui), box-shadow 180ms var(--ease-ui)',
                 }}
               >
                 <span className="text-3xl">{CATEGORY_ICONS[cat.name.toLowerCase()] ?? '📁'}</span>
@@ -219,21 +213,23 @@ export function Home() {
             <button
               key={value}
               onClick={() => handleTypeFilter(value)}
-              className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 hover:scale-105 active:scale-95"
+              className="type-filter-pill flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium da-btn"
               style={{
                 background: 'oklch(0.13 0.016 265)',
-                border: '1px solid oklch(0.22 0.02 265)',
-                color: 'oklch(0.62 0.02 265)',
+                border: '1px solid oklch(0.22 0.018 265)',
+                color: 'oklch(0.58 0.018 265)',
+                /* CSS transition — hardware-accelerated, interruptible */
+                transition: 'transform 160ms var(--ease-out), border-color 150ms var(--ease-ui), color 150ms var(--ease-ui), background-color 150ms var(--ease-ui), box-shadow 150ms var(--ease-ui)',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = 'oklch(0.78 0.17 75 / 0.4)'
+                e.currentTarget.style.borderColor = 'oklch(0.78 0.17 75 / 0.38)'
                 e.currentTarget.style.color = 'var(--color-primary)'
-                e.currentTarget.style.background = 'oklch(0.78 0.17 75 / 0.08)'
+                e.currentTarget.style.backgroundColor = 'oklch(0.78 0.17 75 / 0.07)'
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'oklch(0.22 0.02 265)'
-                e.currentTarget.style.color = 'oklch(0.62 0.02 265)'
-                e.currentTarget.style.background = 'oklch(0.13 0.016 265)'
+                e.currentTarget.style.borderColor = 'oklch(0.22 0.018 265)'
+                e.currentTarget.style.color = 'oklch(0.58 0.018 265)'
+                e.currentTarget.style.backgroundColor = 'oklch(0.13 0.016 265)'
               }}
             >
               <span>{emoji}</span>

@@ -28,20 +28,26 @@ export function ResourceGrid({ resources, isLoading, onSelect }: ResourceGridPro
     if (newCount === prevCountRef.current) return
     prevCountRef.current = newCount
 
+    // Emil: use `transform` string (not shorthand y/scale) for hardware acceleration.
+    // Cap stagger at 8 items × 40ms = max 320ms total wait for large lists.
+    const staggerDelay = Math.min(0.04, 0.32 / cards.length)
+
     gsap.fromTo(
       cards,
-      { opacity: 0, y: 20, scale: 0.97 },
+      {
+        opacity: 0,
+        transform: 'translateY(18px) scale(0.97)',
+      },
       {
         opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 0.45,
+        transform: 'translateY(0px) scale(1)',
+        duration: 0.38,
         ease: 'power3.out',
         stagger: {
-          each: 0.05,
+          each: staggerDelay,
           from: 'start',
         },
-        clearProps: 'transform',
+        clearProps: 'transform,opacity',
       }
     )
   }, [resources?.length])
